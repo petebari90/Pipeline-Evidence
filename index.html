@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Comprehensive oncology intelligence platform covering 218+ FDA-approved cancer therapies and 600+ clinical trials across 50 tumor types. Evidence-based drug profiles, molecular biology, and treatment landscapes.">
+    <meta name="description" content="Comprehensive oncology intelligence platform covering 218+ FDA and EMA-approved cancer therapies and 600+ clinical trials across 50 tumor types. Built for patients, caregivers, and healthcare professionals — evidence-based drug profiles, molecular biology, and treatment landscapes.">
     <title>PipelineEvidence — Oncology Intelligence Platform</title>
     <link rel="canonical" href="https://pipelineevidence.com/">
     <meta property="og:title" content="PipelineEvidence — Oncology Intelligence Platform">
-    <meta property="og:description" content="218+ FDA-approved cancer therapies across 50 tumor types. Drug profiles, clinical trials, SEER statistics, and molecular biology.">
+    <meta property="og:description" content="218+ FDA and EMA-approved cancer therapies across 50 tumor types. Drug profiles, clinical trials, SEER statistics, and molecular biology — for patients, caregivers, and oncology professionals.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pipelineevidence.com/">
     <meta property="og:site_name" content="PipelineEvidence">
@@ -22,7 +22,7 @@
         "@type": "WebSite",
         "name": "PipelineEvidence",
         "url": "https://pipelineevidence.com",
-        "description": "Comprehensive oncology intelligence platform covering FDA-approved cancer therapies, clinical trials, and molecular biology across 50 tumor types.",
+        "description": "Comprehensive oncology intelligence platform covering FDA and EMA-approved cancer therapies, clinical trials, and molecular biology across 50 tumor types — for patients, caregivers, and healthcare professionals.",
         "publisher": {
             "@type": "Organization",
             "name": "PipelineEvidence",
@@ -74,7 +74,7 @@
             Updated February 2026
         </div>
         <h1>The Global Oncology<br><span class="gradient-text">Intelligence Platform</span></h1>
-        <p class="subtitle">Comprehensive FDA-approved therapy profiles, active clinical trials, molecular biology, and SEER statistics across 50 cancer types — built for oncology professionals and researchers.</p>
+        <p class="subtitle">Comprehensive FDA and EMA-approved therapy profiles, active clinical trials, molecular biology, and SEER statistics across 50 cancer types — built for patients, caregivers, and oncology professionals.</p>
 
         <div class="pe-stats">
             <div class="pe-stat">
@@ -151,13 +151,13 @@
     <section class="pe-section reveal">
         <div class="pe-section-header" style="text-align: center;">
             <div class="overline">What You'll Find</div>
-            <h2>Built for Clinical Decision-Making</h2>
+            <h2>Built for Informed Decision-Making</h2>
         </div>
         <div class="pe-features">
             <div class="pe-feature">
                 <div class="pe-feature-icon" style="background: rgba(56,152,255,0.1); color: var(--accent);">💊</div>
-                <h3>FDA Drug Profiles</h3>
-                <p>218+ approved therapies with brand/generic names, mechanism of action, approved indications, dosing, pivotal trial data, and manufacturer information.</p>
+                <h3>FDA &amp; EMA Drug Profiles</h3>
+                <p>218+ approved therapies with brand/generic names, mechanism of action, approved indications, dosing, pivotal trial data, and regulatory status across both US and European markets.</p>
             </div>
             <div class="pe-feature">
                 <div class="pe-feature-icon" style="background: rgba(0,230,160,0.1); color: var(--emerald);">🧬</div>
@@ -288,7 +288,7 @@
     <section class="pe-section reveal">
         <div class="pe-cta">
             <h2>Start Exploring</h2>
-            <p>Access comprehensive oncology intelligence across 50 tumor types — drug profiles, clinical trials, molecular biology, and epidemiological data.</p>
+            <p>Whether you're a patient researching treatment options, a caregiver seeking clarity, or a clinician reviewing the evidence — access comprehensive oncology intelligence across 50 tumor types.</p>
             <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; position: relative;">
                 <a href="all-therapies.html" class="pe-btn">Browse All 218+ Therapies</a>
                 <a href="glossary.html" class="pe-btn pe-btn-ghost">Oncology Glossary</a>
@@ -334,7 +334,7 @@
         <div class="pe-footer-grid">
             <div>
                 <div class="pe-footer-brand"><span class="mark">Pipeline</span><span class="word">Evidence</span></div>
-                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for healthcare professionals and researchers.</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p>
             </div>
             <div>
                 <h4>Platform</h4>
@@ -497,8 +497,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
         if (window.scrollY > 600) { btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; }
         else { btn.style.opacity = '0'; btn.style.transform = 'translateY(10px)'; }
     });
-    btn.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
-})();
-</script>
+    // Set flag so other pages know user navigated from homepage
+    try { sessionStorage.setItem('pe_from_home', '1'); } catch(e) {}
+    </script>
 </body>
 </html>

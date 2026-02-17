@@ -922,7 +922,7 @@
         <div class="pe-footer-grid">
             <div>
                 <div class="pe-footer-brand"><span class="mark">Pipeline</span><span class="word">Evidence</span></div>
-                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for healthcare professionals and researchers.</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p>
             </div>
             <div>
                 <h4>Platform</h4>
@@ -1150,5 +1150,32 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     btn.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
 })();
 </script>
+
+<!-- Medical Disclaimer Banner -->
+<script>
+(function() {
+    try {
+        if (sessionStorage.getItem('pe_disclaimer_shown')) return;
+        sessionStorage.setItem('pe_disclaimer_shown', '1');
+        var d = document.createElement('div');
+        d.id = 'pe-med-disclaimer';
+        d.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"><span style="font-size:1.1rem;">⚕️</span><span><strong style="color:#fbbf24;">Medical Disclaimer:</strong> This content is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician or qualified healthcare provider. <a href="disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Read full disclaimer</a>.</span><button onclick="this.parentElement.parentElement.style.display='none'" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:0 0.25rem;flex-shrink:0;" aria-label="Close">✕</button></div>';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:10001;background:rgba(12,20,37,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.3);padding:0.75rem 1.5rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;animation:peDisclaimerSlide 0.4s ease-out;';
+        var style = document.createElement('style');
+        style.textContent = '@keyframes peDisclaimerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(style);
+        document.body.appendChild(d);
+        setTimeout(function() {
+            if (d && d.parentNode) {
+                d.style.transition = 'opacity 0.5s, transform 0.5s';
+                d.style.opacity = '0';
+                d.style.transform = 'translateY(-100%)';
+                setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500);
+            }
+        }, 8000);
+    } catch(e) {}
+})();
+</script>
+
 </body>
 </html>

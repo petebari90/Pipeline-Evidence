@@ -740,4 +740,10 @@
     <loc>https://pipelineevidence.com/drugs/zytiga</loc>
     <lastmod>2026-02-16</lastmod>
   </url>
+    <url>
+        <loc>https://pipelineevidence.com/compare</loc>
+        <lastmod>2026-02-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

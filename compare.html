@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Comparison Tool — Compare Cancer Therapies Side by Side | PipelineEvidence</title>
+    <meta name="description" content="Compare FDA and EMA-approved cancer drugs side by side. View mechanisms of action, indications, dosing, adverse reactions, and clinical trial data for 130+ oncology therapies.">
+    <link rel="canonical" href="https://pipelineevidence.com/compare">
+    <meta property="og:title" content="Drug Comparison Tool — Compare Cancer Therapies Side by Side">
+    <meta property="og:description" content="Compare FDA and EMA-approved cancer drugs side by side. Mechanisms, indications, dosing, adverse reactions, and pivotal trials for 130+ therapies.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pipelineevidence.com/compare">
+    <meta property="og:site_name" content="PipelineEvidence">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8142425589524717" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebApplication", "name": "PipelineEvidence Drug Comparison Tool", "description": "Compare FDA and EMA-approved cancer drugs side by side.", "url": "https://pipelineevidence.com/compare", "applicationCategory": "HealthApplication", "publisher": { "@type": "Organization", "name": "PipelineEvidence" } }
+    </script>
+    <style>
+        .compare-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .compare-header { text-align: center; padding: 2.5rem 0 2rem; }
+        .compare-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--text-primary); margin-bottom: 0.5rem; }
+        .compare-header p { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        .selector-row { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: end; }
+        .selector-group { flex: 1; min-width: 250px; }
+        .selector-group label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .drug-select { width: 100%; padding: 0.7rem 2.5rem 0.7rem 1rem; font-size: 0.95rem; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" fill="none" stroke="%2394a3b8" stroke-width="1.5"/></svg>'); background-repeat: no-repeat; background-position: right 1rem center; transition: border-color 0.2s; }
+        .drug-select:focus { outline: none; border-color: var(--accent-light); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .drug-select:hover { border-color: rgba(59,130,246,0.4); }
+        .drug-select option { background: var(--bg-base); color: var(--text-primary); }
+
+        .compare-actions { display: flex; gap: 0.75rem; align-items: end; }
+        .btn-compare { padding: 0.7rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: #fff; background: var(--gradient-hero); border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .btn-compare:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(56,152,255,0.3); }
+        .btn-compare:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .btn-reset { padding: 0.7rem 1rem; font-size: 0.9rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .btn-reset:hover { border-color: var(--accent-light); color: var(--accent-light); }
+
+        .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 2rem; }
+        .compare-table th, .compare-table td { padding: 1rem 1.25rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
+        .compare-table th { background: var(--bg-card); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); position: sticky; top: 0; z-index: 10; }
+        .compare-table td { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+        .compare-table .row-label { font-weight: 600; color: var(--text-primary); white-space: nowrap; width: 160px; min-width: 160px; background: rgba(12,20,37,0.5); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .compare-table .drug-col { width: 50%; }
+        .compare-table tr:hover td { background: rgba(56,152,255,0.03); }
+        .compare-table .drug-name-cell { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+        .compare-table .drug-name-cell .generic { color: var(--accent-soft); font-style: italic; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 0.15rem; }
+        .compare-table .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin: 0.15rem 0.15rem 0.15rem 0; }
+        .badge-class { background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); }
+        .badge-approval { background: rgba(0,230,160,0.08); color: var(--emerald); border: 1px solid rgba(0,230,160,0.15); }
+        .badge-mfr { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
+        .trial-item { margin-bottom: 0.5rem; }
+        .trial-name { font-weight: 600; color: var(--accent-soft); }
+        .trial-desc { font-size: 0.85rem; color: var(--text-muted); }
+        .view-full-link { display: inline-block; margin-top: 0.5rem; font-size: 0.82rem; color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(56,152,255,0.25); font-weight: 500; }
+        .view-full-link:hover { color: var(--accent-light); }
+
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-state h3 { font-family: var(--font-display); color: var(--text-secondary); margin-bottom: 0.5rem; }
+
+        .popular-comparisons { margin: 2rem 0; }
+        .popular-comparisons h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .comparison-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .comparison-chip { padding: 0.4rem 0.9rem; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .comparison-chip:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(56,152,255,0.05); }
+
+        @media (max-width: 768px) {
+            .compare-table { display: block; overflow-x: auto; }
+            .compare-table .row-label { min-width: 120px; width: 120px; font-size: 0.75rem; }
+            .selector-row { flex-direction: column; }
+        }
+
+        .highlight-diff { background: rgba(251,191,36,0.06); border-left: 2px solid rgba(251,191,36,0.3); padding-left: 0.75rem; }
+    </style>
+</head>
+<body>
+    <header class="pe-header" id="pe-header">
+        <div class="pe-header-inner">
+            <a href="index.html" class="pe-logo"><span class="mark">Pipeline</span><span class="word">Evidence</span></a>
+            <nav class="pe-nav"><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a>
+                <a href="compare.html">Compare</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+        </div>
+    </header>
+
+    <div class="compare-container">
+        <div class="compare-header">
+            <nav style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a> &rsaquo;
+                <span style="color: var(--text-secondary);">Drug Comparison Tool</span>
+            </nav>
+            <h1>Compare Cancer Therapies</h1>
+            <p>Select two drugs to compare their mechanisms, indications, dosing, side effects, and clinical trial data side by side.</p>
+        </div>
+
+        <div class="selector-row">
+            <div class="selector-group">
+                <label for="drug-a">Drug A</label>
+                <select id="drug-a" class="drug-select"><option value="">Select a drug...</option></select>
+            </div>
+            <div class="selector-group">
+                <label for="drug-b">Drug B</label>
+                <select id="drug-b" class="drug-select"><option value="">Select a drug...</option></select>
+            </div>
+            <div class="compare-actions">
+                <button class="btn-compare" id="btn-compare" disabled onclick="runCompare()">Compare →</button>
+                <button class="btn-reset" onclick="resetCompare()">Reset</button>
+            </div>
+        </div>
+
+        <div id="comparison-result">
+            <div class="empty-state" id="empty-state">
+                <div class="icon">⚖️</div>
+                <h3>Select two drugs to compare</h3>
+                <p>Choose from 130+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p>
+            </div>
+        </div>
+
+        <div class="popular-comparisons" id="popular-section">
+            <h3>Popular Comparisons</h3>
+            <div class="comparison-chips">
+                <a class="comparison-chip" onclick="quickCompare('keytruda','opdivo')">Keytruda vs. Opdivo</a>
+                <a class="comparison-chip" onclick="quickCompare('ibrance','kisqali')">Ibrance vs. Kisqali</a>
+                <a class="comparison-chip" onclick="quickCompare('tagrisso','alecensa')">Tagrisso vs. Alecensa</a>
+                <a class="comparison-chip" onclick="quickCompare('enhertu','kadcyla')">Enhertu vs. Kadcyla</a>
+                <a class="comparison-chip" onclick="quickCompare('revlimid','pomalyst')">Revlimid vs. Pomalyst</a>
+                <a class="comparison-chip" onclick="quickCompare('imbruvica','calquence')">Imbruvica vs. Calquence</a>
+                <a class="comparison-chip" onclick="quickCompare('darzalex','sarclisa')">Darzalex vs. Sarclisa</a>
+                <a class="comparison-chip" onclick="quickCompare('padcev','trodelvy')">Padcev vs. Trodelvy</a>
+                <a class="comparison-chip" onclick="quickCompare('lynparza','rubraca')">Lynparza vs. Rubraca</a>
+                <a class="comparison-chip" onclick="quickCompare('verzenio','kisqali')">Verzenio vs. Kisqali</a>
+                <a class="comparison-chip" onclick="quickCompare('yescarta','breyanzi')">Yescarta vs. Breyanzi</a>
+                <a class="comparison-chip" onclick="quickCompare('tecentriq','imfinzi')">Tecentriq vs. Imfinzi</a>
+            </div>
+        </div>
+
+        <!-- AdSense -->
+        <div style="margin: 2rem 0; text-align: center;">
+            <ins class="adsbygoogle" style="display:block; min-height:250px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <footer class="pe-footer">
+        <div class="pe-footer-grid">
+            <div><div class="pe-footer-brand"><span class="mark">Pipeline</span><span class="word">Evidence</span></div><p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p></div>
+            <div><h4>Platform</h4><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a><a href="methodology.html">Methodology</a></div>
+            <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="disclaimer.html">Medical Disclaimer</a><a href="terms.html">Terms of Use</a></div>
+            <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></div>
+        </div>
+        <div class="pe-footer-bottom">&copy; 2025 PipelineEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
+    </footer>
+
+    <script src="drug-compare-data.js"></script>
+    <script>
+    // Populate selectors
+    const selA = document.getElementById('drug-a');
+    const selB = document.getElementById('drug-b');
+    const btnCompare = document.getElementById('btn-compare');
+
+    DRUG_DATA.sort((a,b) => a.b.localeCompare(b.b));
+    DRUG_DATA.forEach(d => {
+        const label = d.g ? d.b + ' (' + d.g + ')' : d.b;
+        selA.innerHTML += '<option value="' + d.s + '">' + label + '</option>';
+        selB.innerHTML += '<option value="' + d.s + '">' + label + '</option>';
+    });
+
+    function updateBtn() {
+        btnCompare.disabled = !(selA.value && selB.value && selA.value !== selB.value);
+    }
+    selA.addEventListener('change', updateBtn);
+    selB.addEventListener('change', updateBtn);
+
+    function getDrug(slug) {
+        return DRUG_DATA.find(d => d.s === slug);
+    }
+
+    function esc(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function renderTrials(trials) {
+        if (!trials || !trials.length) return '<span style="color:var(--text-muted);font-style:italic;">See full drug page for trial details</span>';
+        return trials.map(t => '<div class="trial-item"><span class="trial-name">' + esc(t.name) + '</span> — <span class="trial-desc">' + esc(t.desc) + '</span></div>').join('');
+    }
+
+    function runCompare() {
+        const a = getDrug(selA.value);
+        const b = getDrug(selB.value);
+        if (!a || !b) return;
+
+        document.getElementById('empty-state').style.display = 'none';
+        document.getElementById('popular-section').style.display = 'none';
+
+        const rows = [
+            {label: 'Drug Name', key: 'name', render: d => '<div class="drug-name-cell">' + esc(d.b) + '<span class="generic">' + esc(d.g) + '</span></div>'},
+            {label: 'Drug Class', key: 'c', render: d => '<span class="badge badge-class">' + esc(d.c) + '</span>'},
+            {label: 'Approval', key: 'a', render: d => '<span class="badge badge-approval">' + esc(d.a) + '</span>'},
+            {label: 'Manufacturer', key: 'm', render: d => '<span class="badge badge-mfr">' + esc(d.m) + '</span>'},
+            {label: 'Mechanism of Action', key: 'moa', render: d => d.moa || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
+            {label: 'Indications', key: 'i', render: d => d.i || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
+            {label: 'Dosage', key: 'd', render: d => d.d || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
+            {label: 'Common Adverse Reactions', key: 'ae', render: d => d.ae || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
+            {label: 'Pharmacokinetics', key: 'pk', render: d => d.pk || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
+            {label: 'Pivotal Trials', key: 't', render: d => renderTrials(d.t)},
+            {label: 'Full Profile', key: 'link', render: d => '<a href="drugs/' + d.s + '.html" class="view-full-link">View complete ' + esc(d.b) + ' profile →</a>'}
+        ];
+
+        let html = '<table class="compare-table">';
+        html += '<thead><tr><th></th><th class="drug-col">Drug A</th><th class="drug-col">Drug B</th></tr></thead>';
+        html += '<tbody>';
+
+        rows.forEach(row => {
+            const valA = row.render(a);
+            const valB = row.render(b);
+            // Highlight differences for simple text fields
+            const isDiff = row.key !== 'name' && row.key !== 'link' && row.key !== 't' && 
+                           a[row.key] && b[row.key] && a[row.key] !== b[row.key];
+            const diffClass = isDiff ? ' highlight-diff' : '';
+            html += '<tr>';
+            html += '<td class="row-label">' + row.label + '</td>';
+            html += '<td class="drug-col' + diffClass + '">' + valA + '</td>';
+            html += '<td class="drug-col' + diffClass + '">' + valB + '</td>';
+            html += '</tr>';
+        });
+
+        html += '</tbody></table>';
+
+        // Add disclaimer
+        html += '<div style="padding:1rem 1.25rem;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:10px;margin-bottom:2rem;">';
+        html += '<p style="color:var(--text-secondary);font-size:0.82rem;line-height:1.6;margin:0;"><strong style="color:var(--amber);">Important:</strong> This comparison is for informational purposes only. Drug selection should always be made by a qualified healthcare provider based on individual patient factors. <a href="disclaimer.html" style="color:var(--accent-soft);">Read full disclaimer</a>.</p>';
+        html += '</div>';
+
+        // Add share/print buttons
+        html += '<div style="text-align:center;margin-bottom:2rem;">';
+        html += '<button onclick="window.print()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🖨 Print Comparison</button>';
+        html += '<button onclick="resetCompare()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--accent-soft);background:rgba(56,152,255,0.08);border:1px solid rgba(56,152,255,0.2);border-radius:8px;cursor:pointer;margin:0 0.25rem;">⚖️ New Comparison</button>';
+        html += '</div>';
+
+        document.getElementById('comparison-result').innerHTML = html;
+        document.getElementById('comparison-result').scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
+    function quickCompare(slugA, slugB) {
+        selA.value = slugA;
+        selB.value = slugB;
+        updateBtn();
+        runCompare();
+    }
+
+    function resetCompare() {
+        selA.value = '';
+        selB.value = '';
+        updateBtn();
+        document.getElementById('comparison-result').innerHTML = '<div class="empty-state" id="empty-state"><div class="icon">⚖️</div><h3>Select two drugs to compare</h3><p>Choose from 130+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p></div>';
+        document.getElementById('popular-section').style.display = '';
+    }
+
+    // Handle URL params for direct links
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('a') && params.get('b')) {
+        selA.value = params.get('a');
+        selB.value = params.get('b');
+        updateBtn();
+        if (selA.value && selB.value) runCompare();
+    }
+    </script>
+
+    <script>
+    const header = document.getElementById('pe-header');
+    if (header) { window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 20); }); }
+    </script>
+
+<!-- Medical Disclaimer Banner -->
+<script>
+(function() {
+    try {
+        if (sessionStorage.getItem('pe_disclaimer_shown')) return;
+        sessionStorage.setItem('pe_disclaimer_shown', '1');
+        var d = document.createElement('div');
+        d.id = 'pe-med-disclaimer';
+        d.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"><span style="font-size:1.1rem;">⚕️</span><span><strong style="color:#fbbf24;">Medical Disclaimer:</strong> This content is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician or qualified healthcare provider. <a href="disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Read full disclaimer</a>.</span><button onclick="this.parentElement.parentElement.style.display=\'none\'" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:0 0.25rem;flex-shrink:0;" aria-label="Close">✕</button></div>';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:10001;background:rgba(12,20,37,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.3);padding:0.75rem 1.5rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;animation:peDisclaimerSlide 0.4s ease-out;';
+        var style = document.createElement('style');
+        style.textContent = '@keyframes peDisclaimerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(style);
+        document.body.appendChild(d);
+        setTimeout(function() {
+            if (d && d.parentNode) {
+                d.style.transition = 'opacity 0.5s, transform 0.5s';
+                d.style.opacity = '0';
+                d.style.transform = 'translateY(-100%)';
+                setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500);
+            }
+        }, 8000);
+    } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

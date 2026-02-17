@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+# Enable pretty URLs (serve /page.html as /page)
+[build.processing]
+  skip_processing = false
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"

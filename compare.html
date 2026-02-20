@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drug Comparison Tool — Compare Cancer Therapies Side by Side | PipelineEvidence</title>
-    <meta name="description" content="Compare FDA and EMA-approved cancer drugs side by side. View mechanisms of action, indications, dosing, adverse reactions, and clinical trial data for 130+ oncology therapies.">
+    <meta name="description" content="Compare FDA and EMA-approved cancer drugs side by side. View mechanisms of action, indications, dosing schedules, adverse reactions, and clinical trial data for 125+ oncology therapies.">
     <link rel="canonical" href="https://pipelineevidence.com/compare">
     <meta property="og:title" content="Drug Comparison Tool — Compare Cancer Therapies Side by Side">
-    <meta property="og:description" content="Compare FDA and EMA-approved cancer drugs side by side. Mechanisms, indications, dosing, adverse reactions, and pivotal trials for 130+ therapies.">
+    <meta property="og:description" content="Compare FDA and EMA-approved cancer drugs side by side. Mechanisms, indications, dosing, adverse reactions, and pivotal trials for 125+ therapies.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pipelineevidence.com/compare">
     <meta property="og:site_name" content="PipelineEvidence">
@@ -20,7 +20,7 @@
         .compare-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
         .compare-header { text-align: center; padding: 2.5rem 0 2rem; }
         .compare-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--text-primary); margin-bottom: 0.5rem; }
-        .compare-header p { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .compare-header p { color: var(--text-secondary); font-size: 1rem; max-width: 650px; margin: 0 auto; line-height: 1.6; }
 
         .selector-row { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: end; }
         .selector-group { flex: 1; min-width: 250px; }
@@ -41,7 +41,7 @@
         .compare-table th, .compare-table td { padding: 1rem 1.25rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
         .compare-table th { background: var(--bg-card); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); position: sticky; top: 0; z-index: 10; }
         .compare-table td { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
-        .compare-table .row-label { font-weight: 600; color: var(--text-primary); white-space: nowrap; width: 160px; min-width: 160px; background: rgba(12,20,37,0.5); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .compare-table .row-label { font-weight: 600; color: var(--text-primary); white-space: nowrap; width: 175px; min-width: 175px; background: rgba(12,20,37,0.5); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
         .compare-table .drug-col { width: 50%; }
         .compare-table tr:hover td { background: rgba(56,152,255,0.03); }
         .compare-table .drug-name-cell { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
@@ -50,6 +50,7 @@
         .badge-class { background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); }
         .badge-approval { background: rgba(0,230,160,0.08); color: var(--emerald); border: 1px solid rgba(0,230,160,0.15); }
         .badge-mfr { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
+        .badge-route { background: rgba(251,191,36,0.08); color: var(--amber); border: 1px solid rgba(251,191,36,0.15); }
         .trial-item { margin-bottom: 0.5rem; }
         .trial-name { font-weight: 600; color: var(--accent-soft); }
         .trial-desc { font-size: 0.85rem; color: var(--text-muted); }
@@ -66,13 +67,28 @@
         .comparison-chip { padding: 0.4rem 0.9rem; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
         .comparison-chip:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(56,152,255,0.05); }
 
+        /* Section Headers within comparison table */
+        .section-header td { background: rgba(56,152,255,0.04) !important; border-bottom: 2px solid rgba(56,152,255,0.15); padding: 0.65rem 1.25rem; }
+        .section-header .section-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Dosing highlight */
+        .dosing-cell { background: rgba(0,230,160,0.02); }
+        .dosing-cell .dose-detail { font-size: 0.88rem; line-height: 1.7; }
+
+        /* Route badge extraction */
+        .route-tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 8px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+        .route-oral { background: rgba(0,230,160,0.1); color: var(--emerald); border: 1px solid rgba(0,230,160,0.2); }
+        .route-iv { background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); }
+        .route-sc { background: rgba(167,139,250,0.1); color: var(--violet); border: 1px solid rgba(167,139,250,0.2); }
+        .route-other { background: rgba(251,191,36,0.08); color: var(--amber); border: 1px solid rgba(251,191,36,0.15); }
+
+        .highlight-diff { background: rgba(251,191,36,0.06); border-left: 2px solid rgba(251,191,36,0.3); padding-left: 0.75rem; }
+
         @media (max-width: 768px) {
             .compare-table { display: block; overflow-x: auto; }
             .compare-table .row-label { min-width: 120px; width: 120px; font-size: 0.75rem; }
             .selector-row { flex-direction: column; }
         }
-
-        .highlight-diff { background: rgba(251,191,36,0.06); border-left: 2px solid rgba(251,191,36,0.3); padding-left: 0.75rem; }
     </style>
 </head>
 <body>
@@ -91,7 +107,7 @@
                 <span style="color: var(--text-secondary);">Drug Comparison Tool</span>
             </nav>
             <h1>Compare Cancer Therapies</h1>
-            <p>Select two drugs to compare their mechanisms, indications, dosing, side effects, and clinical trial data side by side.</p>
+            <p>Select two drugs to compare their mechanisms, indications, dosing &amp; schedule, side effects, pharmacokinetics, and clinical trial data side by side.</p>
         </div>
 
         <div class="selector-row">
@@ -113,7 +129,7 @@
             <div class="empty-state" id="empty-state">
                 <div class="icon">⚖️</div>
                 <h3>Select two drugs to compare</h3>
-                <p>Choose from 130+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p>
+                <p>Choose from 125+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p>
             </div>
         </div>
 
@@ -177,6 +193,7 @@
     }
 
     function esc(str) {
+        if (!str) return '';
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
@@ -187,6 +204,41 @@
         return trials.map(t => '<div class="trial-item"><span class="trial-name">' + esc(t.name) + '</span> — <span class="trial-desc">' + esc(t.desc) + '</span></div>').join('');
     }
 
+    // Detect administration route from dosing text
+    function detectRoute(dosingText) {
+        if (!dosingText) return null;
+        const d = dosingText.toLowerCase();
+        const routes = [];
+        if (/\borally\b|\boral\b|\btablet|\bcapsule|\bby mouth/.test(d)) routes.push({label: 'Oral', cls: 'route-oral'});
+        if (/\biv\b|\bintravenous|\binfusion\b/.test(d)) routes.push({label: 'IV', cls: 'route-iv'});
+        if (/\bsc\b|\bsubcutaneous/.test(d)) routes.push({label: 'SC', cls: 'route-sc'});
+        if (/\bintralesional|\bintravesical|\bintrathecal/.test(d)) routes.push({label: 'Local', cls: 'route-other'});
+        if (/\bim\b|\bintramuscular/.test(d)) routes.push({label: 'IM', cls: 'route-other'});
+        if (/\bimplant|\bwafer/.test(d)) routes.push({label: 'Implant', cls: 'route-other'});
+        if (/\btransducer|\bdevice|\barrays/.test(d)) routes.push({label: 'Device', cls: 'route-other'});
+        if (/\bradiopharm|\bgbq|\bmci\b|\bradio/.test(d)) routes.push({label: 'Radiopharm', cls: 'route-other'});
+        return routes.length ? routes : [{label: 'See label', cls: 'route-other'}];
+    }
+
+    function renderDosing(d) {
+        if (!d.d) return '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>';
+        const routes = detectRoute(d.d);
+        let html = '<div class="dose-detail">';
+        if (routes) {
+            html += '<div style="margin-bottom:0.4rem;">';
+            routes.forEach(r => { html += '<span class="route-tag ' + r.cls + '">' + r.label + '</span> '; });
+            html += '</div>';
+        }
+        html += esc(d.d);
+        html += '</div>';
+        return html;
+    }
+
+    function renderField(val, placeholder) {
+        if (!val || val.trim() === '') return '<span style="color:var(--text-muted);font-style:italic;">' + (placeholder || 'See full drug page') + '</span>';
+        return esc(val);
+    }
+
     function runCompare() {
         const a = getDrug(selA.value);
         const b = getDrug(selB.value);
@@ -195,53 +247,107 @@
         document.getElementById('empty-state').style.display = 'none';
         document.getElementById('popular-section').style.display = 'none';
 
-        const rows = [
-            {label: 'Drug Name', key: 'name', render: d => '<div class="drug-name-cell">' + esc(d.b) + '<span class="generic">' + esc(d.g) + '</span></div>'},
-            {label: 'Drug Class', key: 'c', render: d => '<span class="badge badge-class">' + esc(d.c) + '</span>'},
-            {label: 'Approval', key: 'a', render: d => '<span class="badge badge-approval">' + esc(d.a) + '</span>'},
-            {label: 'Manufacturer', key: 'm', render: d => '<span class="badge badge-mfr">' + esc(d.m) + '</span>'},
-            {label: 'Mechanism of Action', key: 'moa', render: d => d.moa || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
-            {label: 'Indications', key: 'i', render: d => d.i || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
-            {label: 'Dosage', key: 'd', render: d => d.d || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
-            {label: 'Common Adverse Reactions', key: 'ae', render: d => d.ae || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
-            {label: 'Pharmacokinetics', key: 'pk', render: d => d.pk || '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>'},
-            {label: 'Pivotal Trials', key: 't', render: d => renderTrials(d.t)},
-            {label: 'Full Profile', key: 'link', render: d => '<a href="drugs/' + d.s + '.html" class="view-full-link">View complete ' + esc(d.b) + ' profile →</a>'}
+        // Section-grouped rows
+        const sections = [
+            {
+                title: 'Overview',
+                rows: [
+                    {label: 'Drug Name', key: 'name', render: d => '<div class="drug-name-cell">' + esc(d.b) + '<span class="generic">' + esc(d.g) + '</span></div>'},
+                    {label: 'Drug Class', key: 'c', render: d => d.c ? '<span class="badge badge-class">' + esc(d.c) + '</span>' : renderField('')},
+                    {label: 'FDA Approval', key: 'a', render: d => d.a ? '<span class="badge badge-approval">' + esc(d.a) + '</span>' : renderField('')},
+                    {label: 'Manufacturer', key: 'm', render: d => d.m ? '<span class="badge badge-mfr">' + esc(d.m) + '</span>' : renderField('')},
+                ]
+            },
+            {
+                title: 'Mechanism & Indications',
+                rows: [
+                    {label: 'Mechanism of Action', key: 'moa', render: d => renderField(d.moa)},
+                    {label: 'Approved Indications', key: 'i', render: d => renderField(d.i)},
+                ]
+            },
+            {
+                title: 'Dosing & Administration',
+                rows: [
+                    {label: 'Dosing & Schedule', key: 'd', render: d => renderDosing(d), cls: 'dosing-cell'},
+                ]
+            },
+            {
+                title: 'Safety Profile',
+                rows: [
+                    {label: 'Common Adverse Reactions', key: 'ae', render: d => renderField(d.ae, 'See full drug page for AE data')},
+                ]
+            },
+            {
+                title: 'Pharmacokinetics',
+                rows: [
+                    {label: 'PK Summary', key: 'pk', render: d => renderField(d.pk, 'See full drug page for PK data')},
+                ]
+            },
+            {
+                title: 'Clinical Evidence',
+                rows: [
+                    {label: 'Pivotal Trials', key: 't', render: d => renderTrials(d.t)},
+                    {label: 'Full Profile', key: 'link', render: d => '<a href="drugs/' + d.s + '.html" class="view-full-link">View complete ' + esc(d.b) + ' profile →</a>'},
+                ]
+            }
         ];
 
         let html = '<table class="compare-table">';
-        html += '<thead><tr><th></th><th class="drug-col">Drug A</th><th class="drug-col">Drug B</th></tr></thead>';
+        html += '<thead><tr><th style="width:175px;"></th><th class="drug-col">Drug A</th><th class="drug-col">Drug B</th></tr></thead>';
         html += '<tbody>';
 
-        rows.forEach(row => {
-            const valA = row.render(a);
-            const valB = row.render(b);
-            // Highlight differences for simple text fields
-            const isDiff = row.key !== 'name' && row.key !== 'link' && row.key !== 't' && 
-                           a[row.key] && b[row.key] && a[row.key] !== b[row.key];
-            const diffClass = isDiff ? ' highlight-diff' : '';
-            html += '<tr>';
-            html += '<td class="row-label">' + row.label + '</td>';
-            html += '<td class="drug-col' + diffClass + '">' + valA + '</td>';
-            html += '<td class="drug-col' + diffClass + '">' + valB + '</td>';
-            html += '</tr>';
+        sections.forEach(section => {
+            // Section header row
+            html += '<tr class="section-header"><td colspan="3"><span class="section-title">' + section.title + '</span></td></tr>';
+            
+            section.rows.forEach(row => {
+                const valA = row.render(a);
+                const valB = row.render(b);
+                const isDiff = row.key !== 'name' && row.key !== 'link' && row.key !== 't' && 
+                               a[row.key] && b[row.key] && a[row.key] !== b[row.key];
+                const diffClass = isDiff ? ' highlight-diff' : '';
+                const extraClass = row.cls ? ' ' + row.cls : '';
+                html += '<tr>';
+                html += '<td class="row-label">' + row.label + '</td>';
+                html += '<td class="drug-col' + diffClass + extraClass + '">' + valA + '</td>';
+                html += '<td class="drug-col' + diffClass + extraClass + '">' + valB + '</td>';
+                html += '</tr>';
+            });
         });
 
         html += '</tbody></table>';
 
-        // Add disclaimer
+        // Disclaimer
         html += '<div style="padding:1rem 1.25rem;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:10px;margin-bottom:2rem;">';
-        html += '<p style="color:var(--text-secondary);font-size:0.82rem;line-height:1.6;margin:0;"><strong style="color:var(--amber);">Important:</strong> This comparison is for informational purposes only. Drug selection should always be made by a qualified healthcare provider based on individual patient factors. <a href="disclaimer.html" style="color:var(--accent-soft);">Read full disclaimer</a>.</p>';
+        html += '<p style="color:var(--text-secondary);font-size:0.82rem;line-height:1.6;margin:0;"><strong style="color:var(--amber);">Important:</strong> This comparison is for informational purposes only. Dosing information is summarized from FDA-approved prescribing information and may not reflect all dosing scenarios. Drug selection should always be made by a qualified healthcare provider based on individual patient factors. <a href="disclaimer.html" style="color:var(--accent-soft);">Read full disclaimer</a>.</p>';
         html += '</div>';
 
-        // Add share/print buttons
+        // Action buttons
         html += '<div style="text-align:center;margin-bottom:2rem;">';
         html += '<button onclick="window.print()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🖨 Print Comparison</button>';
         html += '<button onclick="resetCompare()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--accent-soft);background:rgba(56,152,255,0.08);border:1px solid rgba(56,152,255,0.2);border-radius:8px;cursor:pointer;margin:0 0.25rem;">⚖️ New Comparison</button>';
+        html += '<button onclick="shareCmp()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🔗 Share Link</button>';
         html += '</div>';
 
         document.getElementById('comparison-result').innerHTML = html;
         document.getElementById('comparison-result').scrollIntoView({behavior: 'smooth', block: 'start'});
+
+        // Update URL for sharing
+        const url = new URL(window.location);
+        url.searchParams.set('a', selA.value);
+        url.searchParams.set('b', selB.value);
+        window.history.replaceState({}, '', url);
+    }
+
+    function shareCmp() {
+        const url = window.location.href;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = event.target;
+                btn.textContent = '✓ Link Copied!';
+                setTimeout(() => { btn.textContent = '🔗 Share Link'; }, 2000);
+            });
+        }
     }
 
     function quickCompare(slugA, slugB) {
@@ -255,8 +361,12 @@
         selA.value = '';
         selB.value = '';
         updateBtn();
-        document.getElementById('comparison-result').innerHTML = '<div class="empty-state" id="empty-state"><div class="icon">⚖️</div><h3>Select two drugs to compare</h3><p>Choose from 130+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p></div>';
+        document.getElementById('comparison-result').innerHTML = '<div class="empty-state" id="empty-state"><div class="icon">⚖️</div><h3>Select two drugs to compare</h3><p>Choose from 125+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p></div>';
         document.getElementById('popular-section').style.display = '';
+        const url = new URL(window.location);
+        url.searchParams.delete('a');
+        url.searchParams.delete('b');
+        window.history.replaceState({}, '', url);
     }
 
     // Handle URL params for direct links

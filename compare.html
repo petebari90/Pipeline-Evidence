@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drug Comparison Tool — Compare Cancer Therapies Side by Side | PipelineEvidence</title>
+    <title>Drug Comparison Tool — Compare Cancer Therapies Side by Side | CancerDrugEvidence</title>
     <meta name="description" content="Compare FDA and EMA-approved cancer drugs side by side. View mechanisms of action, indications, dosing schedules, adverse reactions with visual charts, and clinical trial data for 125+ oncology therapies.">
     <link rel="canonical" href="https://cancerdrugevidence.com/compare">
     <meta property="og:title" content="Drug Comparison Tool — Compare Cancer Therapies Side by Side">
     <meta property="og:description" content="Compare FDA and EMA-approved cancer drugs side by side. Mechanisms, indications, dosing, adverse reactions, and pivotal trials for 125+ therapies.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cancerdrugevidence.com/compare">
-    <meta property="og:site_name" content="PipelineEvidence">
+    <meta property="og:site_name" content="CancerDrugEvidence">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8142425589524717" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     <script type="application/ld+json">
-    { "@context": "https://schema.org", "@type": "WebApplication", "name": "PipelineEvidence Drug Comparison Tool", "description": "Compare FDA and EMA-approved cancer drugs side by side.", "url": "https://cancerdrugevidence.com/compare", "applicationCategory": "HealthApplication", "publisher": { "@type": "Organization", "name": "PipelineEvidence" } }
+    { "@context": "https://schema.org", "@type": "WebApplication", "name": "CancerDrugEvidence Drug Comparison Tool", "description": "Compare FDA and EMA-approved cancer drugs side by side.", "url": "https://cancerdrugevidence.com/compare", "applicationCategory": "HealthApplication", "publisher": { "@type": "Organization", "name": "CancerDrugEvidence" } }
     </script>
     <style>
         .compare-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
@@ -30,7 +30,7 @@
         .drug-select option { background: var(--bg-base); color: var(--text-primary); }
         .compare-actions { display: flex; gap: 0.75rem; align-items: end; }
         .btn-compare { padding: 0.7rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: #fff; background: var(--gradient-hero); border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-        .btn-compare:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(56,152,255,0.3); }
+        .btn-compare:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(29,158,117,0.3); }
         .btn-compare:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
         .btn-reset { padding: 0.7rem 1rem; font-size: 0.9rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
         .btn-reset:hover { border-color: var(--accent-light); color: var(--accent-light); }
@@ -40,17 +40,17 @@
         .compare-table td { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
         .compare-table .row-label { font-weight: 600; color: var(--text-primary); white-space: nowrap; width: 175px; min-width: 175px; background: rgba(12,20,37,0.5); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
         .compare-table .drug-col { width: 50%; }
-        .compare-table tr:hover td { background: rgba(56,152,255,0.03); }
+        .compare-table tr:hover td { background: rgba(29,158,117,0.03); }
         .compare-table .drug-name-cell { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
         .compare-table .drug-name-cell .generic { color: var(--accent-soft); font-style: italic; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 0.15rem; }
         .compare-table .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin: 0.15rem 0.15rem 0.15rem 0; }
-        .badge-class { background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); }
+        .badge-class { background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); }
         .badge-approval { background: rgba(0,230,160,0.08); color: var(--emerald); border: 1px solid rgba(0,230,160,0.15); }
         .badge-mfr { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
         .trial-item { margin-bottom: 0.5rem; }
         .trial-name { font-weight: 600; color: var(--accent-soft); }
         .trial-desc { font-size: 0.85rem; color: var(--text-muted); }
-        .view-full-link { display: inline-block; margin-top: 0.5rem; font-size: 0.82rem; color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(56,152,255,0.25); font-weight: 500; }
+        .view-full-link { display: inline-block; margin-top: 0.5rem; font-size: 0.82rem; color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(29,158,117,0.25); font-weight: 500; }
         .view-full-link:hover { color: var(--accent-light); }
         .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
         .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
@@ -59,14 +59,14 @@
         .popular-comparisons h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem; }
         .comparison-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .comparison-chip { padding: 0.4rem 0.9rem; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
-        .comparison-chip:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(56,152,255,0.05); }
-        .section-header td { background: rgba(56,152,255,0.04) !important; border-bottom: 2px solid rgba(56,152,255,0.15); padding: 0.65rem 1.25rem; }
+        .comparison-chip:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(29,158,117,0.05); }
+        .section-header td { background: rgba(29,158,117,0.04) !important; border-bottom: 2px solid rgba(29,158,117,0.15); padding: 0.65rem 1.25rem; }
         .section-header .section-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.1em; }
         .dosing-cell { background: rgba(0,230,160,0.02); }
         .dosing-cell .dose-detail { font-size: 0.88rem; line-height: 1.7; }
         .route-tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 8px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; margin-right: 0.25rem; }
         .route-oral { background: rgba(0,230,160,0.1); color: var(--emerald); border: 1px solid rgba(0,230,160,0.2); }
-        .route-iv { background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); }
+        .route-iv { background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); }
         .route-sc { background: rgba(167,139,250,0.1); color: var(--violet); border: 1px solid rgba(167,139,250,0.2); }
         .route-other { background: rgba(251,191,36,0.08); color: var(--amber); border: 1px solid rgba(251,191,36,0.15); }
         .highlight-diff { background: rgba(251,191,36,0.06); border-left: 2px solid rgba(251,191,36,0.3); padding-left: 0.75rem; }
@@ -83,18 +83,18 @@
         .ae-bars { flex: 1; display: flex; flex-direction: column; gap: 3px; }
         .ae-bar-row { display: flex; align-items: center; height: 16px; gap: 6px; }
         .ae-bar { height: 100%; border-radius: 3px; min-width: 2px; transition: width 0.5s ease; position: relative; }
-        .ae-bar-a { background: rgba(56,152,255,0.7); }
+        .ae-bar-a { background: rgba(29,158,117,0.7); }
         .ae-bar-b { background: rgba(167,139,250,0.7); }
         .ae-pct { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; min-width: 32px; }
         .ae-bar:hover { filter: brightness(1.2); }
         .ae-common-badge { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-left: 6px; }
         .ae-common-both { background: rgba(251,191,36,0.12); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
-        .ae-only-a { background: rgba(56,152,255,0.08); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.15); }
+        .ae-only-a { background: rgba(29,158,117,0.08); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.15); }
         .ae-only-b { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
         .ae-filter-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .ae-filter-btn { padding: 0.3rem 0.7rem; font-size: 0.75rem; border-radius: 16px; border: 1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
-        .ae-filter-btn.active { border-color: var(--accent-light); color: var(--accent-light); background: rgba(56,152,255,0.08); }
-        .ae-filter-btn:hover { border-color: rgba(56,152,255,0.4); }
+        .ae-filter-btn.active { border-color: var(--accent-light); color: var(--accent-light); background: rgba(29,158,117,0.08); }
+        .ae-filter-btn:hover { border-color: rgba(29,158,117,0.4); }
 
         /* Key Differences Card */
         .key-diff-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
@@ -113,11 +113,11 @@
         }
 
         /* AI Summary Styles */
-        .ai-summary-card { background: linear-gradient(135deg, rgba(56,152,255,0.04) 0%, rgba(167,139,250,0.04) 100%); border: 1px solid rgba(56,152,255,0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+        .ai-summary-card { background: linear-gradient(135deg, rgba(29,158,117,0.04) 0%, rgba(167,139,250,0.04) 100%); border: 1px solid rgba(29,158,117,0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
         .ai-summary-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
-        .ai-summary-icon { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, rgba(56,152,255,0.15), rgba(167,139,250,0.15)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .ai-summary-icon { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, rgba(29,158,117,0.15), rgba(167,139,250,0.15)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
         .ai-summary-label { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
-        .ai-summary-badge { font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 6px; background: rgba(56,152,255,0.1); color: var(--accent-light); border: 1px solid rgba(56,152,255,0.2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .ai-summary-badge { font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 6px; background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .ai-summary-body { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; }
         .ai-summary-body p { margin: 0 0 0.6rem 0; }
         .ai-summary-body p:last-child { margin-bottom: 0; }
@@ -134,7 +134,7 @@
 <body>
     <header class="pe-header" id="pe-header">
         <div class="pe-header-inner">
-            <a href="index.html" class="pe-logo"><span class="mark">Pipeline</span><span class="word">Evidence</span></a>
+            <a href="index.html" class="pe-logo"><svg class="pe-logo-icon" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><path d="M54 8 A36 36 0 1 0 54 72" stroke="#1D9E75" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="54" cy="40" r="7" fill="#1D9E75"/><circle cx="78" cy="22" r="4.5" fill="#0F6E56"/><circle cx="83" cy="40" r="4.5" fill="#0F6E56"/><circle cx="78" cy="58" r="4.5" fill="#0F6E56"/><line x1="60" y1="36" x2="75" y2="24" stroke="#5DCAA5" stroke-width="1.5"/><line x1="61" y1="40" x2="78" y2="40" stroke="#5DCAA5" stroke-width="1.5"/><line x1="60" y1="44" x2="75" y2="56" stroke="#5DCAA5" stroke-width="1.5"/></svg><span class="mark">Cancer Drug</span><span class="word">Evidence</span></a>
             <nav class="pe-nav"><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a>
                 <a href="compare.html">Compare</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
         </div>
@@ -200,12 +200,12 @@
 
     <footer class="pe-footer">
         <div class="pe-footer-grid">
-            <div><div class="pe-footer-brand"><span class="mark">Pipeline</span><span class="word">Evidence</span></div><p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p></div>
+            <div><div class="pe-footer-brand"><span class="mark">Cancer Drug</span><span class="word">Evidence</span></div><p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p></div>
             <div><h4>Platform</h4><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a><a href="methodology.html">Methodology</a></div>
             <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="disclaimer.html">Medical Disclaimer</a><a href="terms.html">Terms of Use</a></div>
             <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></div>
         </div>
-        <div class="pe-footer-bottom">&copy; 2025 PipelineEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
+        <div class="pe-footer-bottom">&copy; 2025 CancerDrugEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
     </footer>
 
     <script src="drug-compare-data.js"></script>
@@ -345,7 +345,7 @@
 
         // Legend
         html += '<div class="ae-legend">';
-        html += '<div class="ae-legend-item"><div class="ae-legend-swatch" style="background:rgba(56,152,255,0.7);"></div>' + esc(a.b) + '</div>';
+        html += '<div class="ae-legend-item"><div class="ae-legend-swatch" style="background:rgba(29,158,117,0.7);"></div>' + esc(a.b) + '</div>';
         html += '<div class="ae-legend-item"><div class="ae-legend-swatch" style="background:rgba(167,139,250,0.7);"></div>' + esc(b.b) + '</div>';
         html += '<div class="ae-legend-item"><span class="ae-common-badge ae-common-both">shared</span> Reported with both drugs</div>';
         html += '</div>';
@@ -379,7 +379,7 @@
             html += '<div class="ae-bar-row">';
             if (item.pctA > 0) {
                 html += '<div class="ae-bar ae-bar-a" style="width:' + widthA + '%" title="' + esc(a.b) + ': ' + item.pctA + '%"></div>';
-                html += '<span class="ae-pct" style="color:rgba(56,152,255,0.9);">' + item.pctA + '%</span>';
+                html += '<span class="ae-pct" style="color:rgba(29,158,117,0.9);">' + item.pctA + '%</span>';
             } else {
                 html += '<div class="ae-bar ae-bar-a" style="width:0%"></div>';
                 html += '<span class="ae-pct" style="color:var(--text-muted);">—</span>';
@@ -428,20 +428,20 @@
 
         // Route
         html += '<div class="key-diff-item"><div class="key-diff-label">Route of Administration</div>';
-        html += '<div class="key-diff-value"><span style="color:rgba(56,152,255,0.9);">' + esc(a.b) + ':</span> ' + esc(routeA) + '<br><span style="color:rgba(167,139,250,0.9);">' + esc(b.b) + ':</span> ' + esc(routeB) + '</div></div>';
+        html += '<div class="key-diff-value"><span style="color:rgba(29,158,117,0.9);">' + esc(a.b) + ':</span> ' + esc(routeA) + '<br><span style="color:rgba(167,139,250,0.9);">' + esc(b.b) + ':</span> ' + esc(routeB) + '</div></div>';
 
         // Drug Class
         html += '<div class="key-diff-item"><div class="key-diff-label">Drug Class</div>';
         if (a.c === b.c) {
             html += '<div class="key-diff-value" style="color:var(--emerald);">Same class<br><span style="font-weight:400;font-size:0.8rem;color:var(--text-muted);">' + esc(a.c) + '</span></div>';
         } else {
-            html += '<div class="key-diff-value"><span style="color:rgba(56,152,255,0.9);font-size:0.82rem;">' + esc(a.c || 'N/A') + '</span><br><span style="color:rgba(167,139,250,0.9);font-size:0.82rem;">' + esc(b.c || 'N/A') + '</span></div>';
+            html += '<div class="key-diff-value"><span style="color:rgba(29,158,117,0.9);font-size:0.82rem;">' + esc(a.c || 'N/A') + '</span><br><span style="color:rgba(167,139,250,0.9);font-size:0.82rem;">' + esc(b.c || 'N/A') + '</span></div>';
         }
         html += '</div>';
 
         // Unique notable AEs
         html += '<div class="key-diff-item"><div class="key-diff-label">Notable Unique AEs</div><div class="key-diff-value" style="font-size:0.82rem;">';
-        if (uniqueToA.length) html += '<span style="color:rgba(56,152,255,0.9);">' + esc(a.b) + ':</span> ' + esc(uniqueToA.slice(0,2).map(x => x.name + ' (' + x.pct + '%)').join(', '));
+        if (uniqueToA.length) html += '<span style="color:rgba(29,158,117,0.9);">' + esc(a.b) + ':</span> ' + esc(uniqueToA.slice(0,2).map(x => x.name + ' (' + x.pct + '%)').join(', '));
         if (uniqueToA.length && uniqueToB.length) html += '<br>';
         if (uniqueToB.length) html += '<span style="color:rgba(167,139,250,0.9);">' + esc(b.b) + ':</span> ' + esc(uniqueToB.slice(0,2).map(x => x.name + ' (' + x.pct + '%)').join(', '));
         if (!uniqueToA.length && !uniqueToB.length) html += '<span style="color:var(--text-muted);">Similar AE profiles</span>';
@@ -538,7 +538,7 @@
         // Action buttons
         html += '<div style="text-align:center;margin-bottom:2rem;">';
         html += '<button onclick="window.print()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🖨 Print</button>';
-        html += '<button onclick="resetCompare()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--accent-soft);background:rgba(56,152,255,0.08);border:1px solid rgba(56,152,255,0.2);border-radius:8px;cursor:pointer;margin:0 0.25rem;">⚖️ New Comparison</button>';
+        html += '<button onclick="resetCompare()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--accent-soft);background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);border-radius:8px;cursor:pointer;margin:0 0.25rem;">⚖️ New Comparison</button>';
         html += '<button onclick="shareCmp(event)" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🔗 Copy Link</button>';
         html += '</div>';
 

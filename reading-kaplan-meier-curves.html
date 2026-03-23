@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A practical guide to reading Kaplan-Meier survival curves in oncology clinical trials. Learn what the axes mean, how to interpret median survival, censoring marks, confidence intervals, and the hazard ratio — with real-world examples from landmark cancer studies.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Read a Kaplan-Meier Survival Curve: A Visual Guide for Oncology — CancerDrugEvidence</title>
+    <link rel="canonical" href="https://cancerdrugevidence.com/reading-kaplan-meier-curves">
+    <meta property="og:title" content="How to Read a Kaplan-Meier Survival Curve: A Visual Guide for Oncology — CancerDrugEvidence">
+    <meta property="og:description" content="A practical guide to reading Kaplan-Meier survival curves in oncology. Learn what the axes mean, how to interpret median survival, censoring, and the hazard ratio.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://cancerdrugevidence.com/reading-kaplan-meier-curves">
+    <meta property="og:site_name" content="CancerDrugEvidence">
+    <meta name="twitter:card" content="summary">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8142425589524717" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Read a Kaplan-Meier Survival Curve: A Visual Guide for Oncology",
+        "description": "A practical guide to reading Kaplan-Meier survival curves in oncology clinical trials. Learn what the axes mean, how to interpret median survival, censoring marks, confidence intervals, and the hazard ratio.",
+        "datePublished": "2026-02-05",
+        "dateModified": "2026-02-17",
+        "publisher": {
+            "@type": "Organization",
+            "name": "CancerDrugEvidence",
+            "url": "https://cancerdrugevidence.com"
+        },
+        "mainEntityOfPage": "https://cancerdrugevidence.com/reading-kaplan-meier-curves"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cancerdrugevidence.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://cancerdrugevidence.com/articles"},
+            {"@type": "ListItem", "position": 3, "name": "How to Read a Kaplan-Meier Survival Curve", "item": "https://cancerdrugevidence.com/reading-kaplan-meier-curves"}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is a Kaplan-Meier survival curve?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A Kaplan-Meier survival curve is a statistical graph used in clinical trials to show the proportion of patients surviving (or remaining event-free) over time. The y-axis shows the probability of survival (0% to 100%) and the x-axis shows time since randomization."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What does a hazard ratio mean in cancer clinical trials?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A hazard ratio (HR) compares the rate of events (such as death or disease progression) between treatment arms. An HR of 0.70 means patients in the experimental arm had a 30% lower rate of events compared to the control arm at any given time point."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What do the tick marks on a Kaplan-Meier curve mean?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Small vertical tick marks (or plus signs) on a Kaplan-Meier curve indicate censored observations — patients who left the study for reasons other than the event of interest, such as loss to follow-up, withdrawal, or the study ending before an event occurred."
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+
+<body>
+    <header class="pe-header" id="pe-header">
+        <div class="pe-header-inner">
+            <a href="index.html" class="pe-logo"><svg class="pe-logo-icon" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><path d="M54 8 A36 36 0 1 0 54 72" stroke="#1D9E75" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="54" cy="40" r="7" fill="#1D9E75"/><circle cx="78" cy="22" r="4.5" fill="#0F6E56"/><circle cx="83" cy="40" r="4.5" fill="#0F6E56"/><circle cx="78" cy="58" r="4.5" fill="#0F6E56"/><line x1="60" y1="36" x2="75" y2="24" stroke="#5DCAA5" stroke-width="1.5"/><line x1="61" y1="40" x2="78" y2="40" stroke="#5DCAA5" stroke-width="1.5"/><line x1="60" y1="44" x2="75" y2="56" stroke="#5DCAA5" stroke-width="1.5"/></svg>
+                <span class="mark">Cancer Drug</span><span class="word">Evidence</span>
+            </a>
+            <nav class="pe-nav">
+                <a href="all-therapies.html">All Therapies</a>
+                <a href="drug-library.html">Drug Library</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="articles.html">Articles</a>
+                <a href="compare.html">Compare</a>
+                <a href="methodology.html">Methodology</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
+        <nav style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a> &rsaquo;
+            <a href="articles.html" style="color: var(--text-muted); text-decoration: none;">Articles</a> &rsaquo;
+            <span style="color: var(--text-secondary);">How to Read a Kaplan-Meier Survival Curve</span>
+        </nav>
+        <div style="margin-bottom: 1rem;">
+            <span style="font-size: 0.7rem; color: var(--accent-light); background: rgba(59,130,246,0.1); padding: 0.15rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Data Literacy</span>
+            <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 0.75rem;">February 2026</span>
+        </div>
+        <h1 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1.5rem; line-height: 1.3;">How to Read a Kaplan-Meier Survival Curve: A Visual Guide for Oncology</h1>
+        
+        <article style="margin-bottom: 3rem;">
+            
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">If you have ever read the results of a cancer clinical trial, you have almost certainly encountered a Kaplan-Meier (KM) curve. These step-shaped graphs are the standard way oncology researchers present time-to-event data — whether the event is death, disease progression, or recurrence. Despite their ubiquity, KM curves are often misread, even by people with medical training. This guide breaks down every element of the graph so you can confidently interpret the survival data behind any drug approval on CancerDrugEvidence.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">The Anatomy of a KM Curve</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">A Kaplan-Meier curve has two axes. The <strong style="color: var(--text-primary);">vertical axis (y-axis)</strong> shows the estimated probability of surviving (or remaining event-free) from 0% to 100%. The <strong style="color: var(--text-primary);">horizontal axis (x-axis)</strong> shows time, typically measured in months from randomization. Most oncology trials display two curves: one for the experimental arm and one for the control arm.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">Every curve starts at 100% on the left — at time zero, all patients are alive and event-free. As time passes and events occur, each curve descends in a characteristic staircase pattern. Each downward step represents one or more events. The wider the gap between the two curves, the greater the difference in outcomes between the two treatment groups.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Below most KM curves you will find a <strong style="color: var(--text-primary);">number-at-risk table</strong> — a row of numbers showing how many patients remain in each arm at specific time points. This is critical context: a curve based on 300 patients at 12 months is far more reliable than the same curve when only 15 patients remain at 36 months. Always check the numbers at risk before drawing conclusions from the tail end of a curve.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Median Survival: The Most-Quoted Statistic</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The <strong style="color: var(--text-primary);">median</strong> is the time point at which the survival curve crosses the 50% line — meaning half the patients have experienced the event and half have not. When a trial reports "median overall survival of 18.4 months," it means the curve crossed the 50% mark at 18.4 months.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">A common mistake is treating the median as an expiration date. It is not. It is the midpoint of a distribution. Some patients will have events much earlier, and many will survive far longer. The shape of the curve matters as much as the median — a curve with a long, flat tail (a "plateau") suggests a subset of patients achieving durable benefit, which is especially meaningful in immunotherapy trials.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Sometimes you will see "median not reached" or "NR" in trial results. This means fewer than half the patients have had an event at the time of analysis — which is generally a positive sign indicating the treatment is performing well, but it also means the data is still maturing.</p>
+
+            <!-- AdSense Mid-Article -->
+            <div style="margin: 2rem 0; text-align: center;">
+                <ins class="adsbygoogle" style="display:block; min-height:250px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Understanding the Hazard Ratio</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The <strong style="color: var(--text-primary);">hazard ratio (HR)</strong> is arguably the most important number reported alongside a KM curve. It compares the instantaneous rate of events between the experimental and control arms over the entire study period. An HR of 1.0 means no difference. An HR below 1.0 favors the experimental arm.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">Practically, an HR of 0.70 means that at any given time point during the study, patients in the experimental arm had a 30% lower rate of experiencing the event compared to the control arm. An HR of 0.50 represents a 50% reduction — a substantial benefit. The most transformative drugs in oncology — like <a href="drugs/keytruda.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">pembrolizumab</a> in MSI-high cancers or <a href="drugs/tagrisso.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">osimertinib</a> in EGFR-mutant NSCLC — tend to show HRs in the 0.30–0.50 range.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Always look at the <strong style="color: var(--text-primary);">95% confidence interval (CI)</strong> around the HR. If the CI crosses 1.0, the difference is not statistically significant. A trial reporting HR 0.82 (95% CI: 0.65–1.03) has not demonstrated a statistically significant benefit, even though the point estimate favors the experimental arm. The p-value confirms this — if it is above 0.05 (or whatever significance threshold the trial pre-specified), the result is not statistically significant.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Censoring: The Tick Marks That Matter</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">Small vertical tick marks (or plus signs) on a KM curve represent <strong style="color: var(--text-primary);">censored observations</strong> — patients whose outcome is unknown because they left the study before experiencing an event. This can happen when a patient is lost to follow-up, withdraws consent, or when the study's data cutoff date arrives before they have an event.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Censoring is a normal part of survival analysis, but heavy censoring — especially if it differs between treatment arms — can bias results. If you see far more tick marks on one curve than the other, it may indicate differential dropout that could affect the reliability of the comparison. The number-at-risk table below the graph helps quantify this.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Curve Separation and Crossing: What to Watch For</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;"><strong style="color: var(--text-primary);">Early separation</strong> that is maintained over time is the clearest signal of treatment benefit. This pattern — where the experimental curve pulls away from the control curve quickly and the gap persists — is characteristic of highly effective targeted therapies like the CDK4/6 inhibitors (<a href="drugs/ibrance.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">palbociclib</a>, <a href="drugs/kisqali.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">ribociclib</a>, <a href="drugs/verzenio.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">abemaciclib</a>) in HR-positive breast cancer.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;"><strong style="color: var(--text-primary);">Delayed separation</strong> — where the curves overlap initially before diverging — is often seen with immunotherapy, particularly checkpoint inhibitors. The immune system takes time to mount an anti-tumor response, so early benefit may be modest while long-term outcomes are substantial.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;"><strong style="color: var(--text-primary);">Crossing curves</strong> are a red flag that the treatment effect is not consistent over time. If the experimental arm does better initially but the curves converge or cross later, it may indicate that the benefit is transient. Crossing curves also violate the proportional hazards assumption underlying the hazard ratio, which means the single HR reported may not fully capture the treatment effect.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">PFS vs. OS: Choosing the Right Endpoint</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The same KM methodology applies to different endpoints. <strong style="color: var(--text-primary);">Overall survival (OS)</strong> measures time from randomization to death from any cause — it is the gold standard because it is objective and unambiguous. <strong style="color: var(--text-primary);">Progression-free survival (PFS)</strong> measures time from randomization to disease progression or death. PFS matures faster (more events occur sooner), which is why many trials use it as a primary endpoint, but it relies on imaging assessments that can introduce measurement variability.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Other time-to-event endpoints you may encounter include disease-free survival (DFS) in adjuvant trials, event-free survival (EFS) in neoadjuvant settings, and duration of response (DOR) in single-arm studies. Each has its role, and the choice of endpoint affects how directly the results translate to patient benefit.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Putting It All Together</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">When evaluating a KM curve from any oncology trial, ask yourself these questions in order: What endpoint is being shown (OS, PFS, DFS)? How many patients are in each arm, and how many remain at risk at later time points? What is the hazard ratio and is the confidence interval entirely below 1.0? Is the curve separation early and sustained, delayed, or crossing? Is the median reached, and if so, what is the absolute difference? Is there a plateau suggesting durable benefit for a subset of patients?</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem;">Every drug page on CancerDrugEvidence references the pivotal clinical trials that supported FDA approval. With these tools for reading KM curves, you can now follow those links to the primary publications and evaluate the survival data yourself. Explore our <a href="drug-library.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">Drug Library</a> to find the trials behind each approved therapy.</p>
+        </article>
+
+        <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.15); border-radius: 12px;">
+            <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; margin: 0;">
+                <strong style="color: var(--amber);">Medical Disclaimer:</strong> This article is for informational purposes only. <a href="disclaimer.html" style="color: var(--accent-light);">Read full disclaimer</a>.
+                <br>Last updated: <time datetime="2026-02-05">February 2026</time>
+            </p>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">More Articles</p>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <a href="understanding-immunotherapy.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-subtle);">Understanding Cancer Immunotherapy: How Checkpoint Inhibitors Work →</a>
+                <a href="hazard-ratios-explained.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-subtle);">Hazard Ratios Explained: What HR 0.70 Actually Means for Patients →</a>
+                <a href="antibody-drug-conjugates-explained.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0;">Antibody-Drug Conjugates: The Guided Missiles of Cancer Therapy →</a>
+            </div>
+        </div>
+    </main>
+
+    <div style="max-width:1400px;margin:1.5rem auto;padding:0 2rem;">
+        <ins class="adsbygoogle" style="display:block;min-height:90px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer class="pe-footer">
+    <div class="pe-footer-inner">
+        <div class="pe-footer-grid">
+            <div>
+                <div class="pe-footer-brand"><span class="mark">Cancer Drug</span><span class="word">Evidence</span></div>
+                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p>
+            </div>
+            <div><h4>Platform</h4><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a><a href="methodology.html">Methodology</a></div>
+            <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="disclaimer.html">Medical Disclaimer</a><a href="terms.html">Terms of Use</a></div>
+            <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></div>
+        </div>
+        <div class="pe-footer-bottom">&copy; 2025 CancerDrugEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
+        </div>
+    </footer>
+
+    <script>
+    const header = document.getElementById('pe-header');
+    if (header) { window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 20); }); }
+    </script>
+    <script>
+    (function() {
+        var bar = document.createElement('div'); bar.id = 'reading-progress';
+        bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#1D9E75,#5DCAA5,#1D9E75);z-index:10000;transition:width 0.1s linear;width:0;';
+        document.body.appendChild(bar);
+        window.addEventListener('scroll', function() { var h = document.documentElement.scrollHeight - window.innerHeight; bar.style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%'; });
+    })();
+    (function() {
+        var btn = document.createElement('button'); btn.innerHTML = '↑'; btn.id = 'back-to-top';
+        btn.style.cssText = 'position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent,#1D9E75);color:#fff;border:none;font-size:1.2rem;cursor:pointer;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,0.3);transform:translateY(10px);';
+        document.body.appendChild(btn);
+        window.addEventListener('scroll', function() { if (window.scrollY > 600) { btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; } else { btn.style.opacity = '0'; btn.style.transform = 'translateY(10px)'; } });
+        btn.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); });
+    })();
+    </script>
+
+<!-- Medical Disclaimer Banner -->
+<script>
+(function() {
+    try {
+        if (sessionStorage.getItem('pe_disclaimer_shown')) return;
+        sessionStorage.setItem('pe_disclaimer_shown', '1');
+        var d = document.createElement('div');
+        d.id = 'pe-med-disclaimer';
+        d.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"><span style="font-size:1.1rem;">⚕️</span><span><strong style="color:#fbbf24;">Medical Disclaimer:</strong> This content is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician or qualified healthcare provider. <a href="disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Read full disclaimer</a>.</span><button onclick="this.parentElement.parentElement.style.display='none'" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:0 0.25rem;flex-shrink:0;" aria-label="Close">✕</button></div>';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:10001;background:rgba(12,20,37,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.3);padding:0.75rem 1.5rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;animation:peDisclaimerSlide 0.4s ease-out;';
+        var style = document.createElement('style');
+        style.textContent = '@keyframes peDisclaimerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(style);
+        document.body.appendChild(d);
+        setTimeout(function() {
+            if (d && d.parentNode) {
+                d.style.transition = 'opacity 0.5s, transform 0.5s';
+                d.style.opacity = '0';
+                d.style.transform = 'translateY(-100%)';
+                setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500);
+            }
+        }, 8000);
+    } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

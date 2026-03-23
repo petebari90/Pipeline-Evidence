@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="What does a hazard ratio of 0.70 actually mean for cancer patients? This guide explains hazard ratios, confidence intervals, and p-values in plain language — with examples from FDA-approved oncology drugs.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazard Ratios Explained: What HR 0.70 Actually Means for Cancer Patients — CancerDrugEvidence</title>
+    <link rel="canonical" href="https://cancerdrugevidence.com/hazard-ratios-explained">
+    <meta property="og:title" content="Hazard Ratios Explained: What HR 0.70 Actually Means for Cancer Patients">
+    <meta property="og:description" content="What does a hazard ratio of 0.70 actually mean for cancer patients? This guide explains HRs, confidence intervals, and p-values in oncology clinical trials.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://cancerdrugevidence.com/hazard-ratios-explained">
+    <meta property="og:site_name" content="CancerDrugEvidence">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8142425589524717" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Hazard Ratios Explained: What HR 0.70 Actually Means for Cancer Patients",
+        "description": "What does a hazard ratio of 0.70 actually mean for cancer patients? This guide explains hazard ratios, confidence intervals, and p-values in plain language.",
+        "datePublished": "2026-02-12",
+        "dateModified": "2026-02-17",
+        "publisher": { "@type": "Organization", "name": "CancerDrugEvidence", "url": "https://cancerdrugevidence.com" },
+        "mainEntityOfPage": "https://cancerdrugevidence.com/hazard-ratios-explained"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cancerdrugevidence.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://cancerdrugevidence.com/articles"},
+            {"@type": "ListItem", "position": 3, "name": "Hazard Ratios Explained", "item": "https://cancerdrugevidence.com/hazard-ratios-explained"}
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "What is a good hazard ratio in oncology?", "acceptedAnswer": { "@type": "Answer", "text": "In oncology clinical trials, a hazard ratio below 1.0 favors the experimental treatment. An HR of 0.50–0.70 is generally considered a meaningful benefit. HRs below 0.50 represent transformative efficacy. Context matters — the clinical significance depends on the disease setting, endpoint, and available alternatives." } },
+            { "@type": "Question", "name": "What is the difference between hazard ratio and relative risk?", "acceptedAnswer": { "@type": "Answer", "text": "A hazard ratio measures the instantaneous rate of an event over time, accounting for when events occur and for censored data. Relative risk compares the cumulative proportion of events at a single time point. Hazard ratios are more informative for time-to-event data because they use information from the entire follow-up period." } }
+        ]
+    }
+    </script>
+</head>
+
+<body>
+    <header class="pe-header" id="pe-header">
+        <div class="pe-header-inner">
+            <a href="index.html" class="pe-logo"><svg class="pe-logo-icon" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><path d="M54 8 A36 36 0 1 0 54 72" stroke="#1D9E75" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="54" cy="40" r="7" fill="#1D9E75"/><circle cx="78" cy="22" r="4.5" fill="#0F6E56"/><circle cx="83" cy="40" r="4.5" fill="#0F6E56"/><circle cx="78" cy="58" r="4.5" fill="#0F6E56"/><line x1="60" y1="36" x2="75" y2="24" stroke="#5DCAA5" stroke-width="1.5"/><line x1="61" y1="40" x2="78" y2="40" stroke="#5DCAA5" stroke-width="1.5"/><line x1="60" y1="44" x2="75" y2="56" stroke="#5DCAA5" stroke-width="1.5"/></svg><span class="mark">Cancer Drug</span><span class="word">Evidence</span></a>
+            <nav class="pe-nav">
+                <a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a>
+                <a href="compare.html">Compare</a><a href="methodology.html">Methodology</a><a href="about.html">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
+        <nav style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+            <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a> &rsaquo;
+            <a href="articles.html" style="color: var(--text-muted); text-decoration: none;">Articles</a> &rsaquo;
+            <span style="color: var(--text-secondary);">Hazard Ratios Explained</span>
+        </nav>
+        <div style="margin-bottom: 1rem;">
+            <span style="font-size: 0.7rem; color: var(--accent-light); background: rgba(59,130,246,0.1); padding: 0.15rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Data Literacy</span>
+            <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 0.75rem;">February 2026</span>
+        </div>
+        <h1 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1.5rem; line-height: 1.3;">Hazard Ratios Explained: What HR 0.70 Actually Means for Cancer Patients</h1>
+        
+        <article style="margin-bottom: 3rem;">
+
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Every oncology drug approval is built on a number: the hazard ratio. When the FDA reviews a new cancer therapy, the HR from the pivotal trial is the statistic that most directly answers the question, "Does this drug work?" Yet hazard ratios are routinely misinterpreted — by patients, journalists, and sometimes clinicians. This guide clarifies what the number actually tells you, what it does not, and how to use it when evaluating the therapies tracked on CancerDrugEvidence.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">What a Hazard Ratio Is (and Is Not)</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">A hazard ratio compares the rate at which events (death, progression, recurrence) occur in one group relative to another. If a trial reports HR = 0.70 for overall survival, it means that at any point during the study, patients receiving the experimental treatment were experiencing death at 70% the rate of patients in the control arm — or equivalently, a 30% reduction in the rate of death.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The critical nuance: an HR is a <em>rate</em> ratio, not a <em>probability</em> ratio. An HR of 0.70 does <strong style="color: var(--text-primary);">not</strong> mean "30% of patients are cured" or "you have a 30% better chance of surviving." It means the instantaneous rate of the event is 30% lower in the experimental arm at any given moment, averaged over the study period.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">This distinction matters because the actual survival benefit in absolute terms depends on the baseline risk. A 30% rate reduction in a disease where median survival is 6 months translates to a different absolute benefit than the same HR in a disease where median survival is 5 years.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">A Practical Scale for Interpreting HRs in Oncology</h2>
+            
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+                <div style="display: grid; gap: 0.75rem;">
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                        <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--emerald);">HR &lt; 0.30</span>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;"><strong style="color: var(--text-primary);">Transformative.</strong> Rare in oncology. Example: osimertinib vs. placebo in LAURA (HR 0.16 for PFS in stage III EGFR-mutant NSCLC).</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                        <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--emerald);">0.30–0.50</span>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;"><strong style="color: var(--text-primary);">Highly effective.</strong> Often practice-changing. Example: alectinib vs. crizotinib in ALEX (HR 0.47 for PFS in ALK+ NSCLC).</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                        <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: #fbbf24;">0.50–0.70</span>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;"><strong style="color: var(--text-primary);">Meaningful benefit.</strong> Common range for successful targeted therapies and combinations. Example: osimertinib + chemo vs. osimertinib in FLAURA2 (HR 0.62 for PFS).</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle);">
+                        <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: #fbbf24;">0.70–0.85</span>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;"><strong style="color: var(--text-primary);">Modest but real.</strong> Often clinically meaningful, especially for OS endpoints. Many adjuvant therapies fall in this range.</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 100px 1fr; gap: 1rem; align-items: center; padding: 0.5rem 0;">
+                        <span style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--text-muted);">0.85–1.0</span>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;"><strong style="color: var(--text-primary);">Marginal or not significant.</strong> May not justify added toxicity or cost unless the CI clearly excludes 1.0.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0; text-align: center;">
+                <ins class="adsbygoogle" style="display:block; min-height:250px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Confidence Intervals: The Error Bars You Cannot Ignore</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">A hazard ratio is always reported with a 95% confidence interval (CI). The CI represents the range within which the true HR is likely to fall. If the entire CI is below 1.0, the result is statistically significant in favor of the experimental arm. If the CI crosses 1.0, the observed difference could be due to chance.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The width of the CI also conveys precision. A narrow CI like HR 0.65 (0.58–0.73) from a large trial gives you high confidence in the effect size. A wide CI like HR 0.65 (0.38–1.12) from a small study tells you the true effect could range from substantial benefit to no benefit at all.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">When evaluating drug pages on CancerDrugEvidence, you will find links to pivotal trial publications for each approved therapy. Check the CI alongside the HR — the CI is often more informative than the p-value for understanding how certain we should be about the magnitude of benefit.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">When the HR Misleads: Limitations to Know</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">The standard hazard ratio assumes that the treatment effect is <strong style="color: var(--text-primary);">constant over time</strong> — the proportional hazards assumption. In reality, many cancer treatments have effects that change. Immunotherapy is the classic example: checkpoint inhibitors often show minimal early benefit (the curves overlap or even cross initially) followed by substantial long-term separation. A single HR averages these two phases together, potentially underrepresenting the long-term benefit.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">Another limitation: the HR tells you about relative rates, not absolute benefit. A drug with HR 0.60 might improve median PFS from 3 months to 5 months in one disease (2-month absolute gain) or from 12 months to 20 months in another (8-month absolute gain). Always look at the absolute differences in median or landmark survival times alongside the HR.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Finally, be cautious about comparing HRs across different trials. An HR of 0.70 in one trial is not equivalent to HR 0.70 in another — the patient populations, comparator arms, disease settings, and follow-up durations all differ. Cross-trial comparisons require formal indirect comparison methods, not HR-to-HR matching.</p>
+
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin: 2rem 0 1rem;">Applying This to Real Drug Approvals</h2>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1rem;">Every drug in the CancerDrugEvidence <a href="drug-library.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">Drug Library</a> links to the clinical trials that supported its approval. When you visit a drug page, you can follow the ClinicalTrials.gov and PubMed links to find the full publications. Focus on the primary endpoint HR and CI, then look at the Kaplan-Meier curves to understand the pattern of separation.</p>
+            <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem;">This combination — HR for the magnitude of effect, CI for certainty, and KM curve for the pattern over time — gives you the complete picture of how well a cancer drug performs. For more on reading those curves, see our companion article: <a href="reading-kaplan-meier-curves.html" style="color:var(--accent-soft);text-decoration:none;border-bottom:1px solid rgba(29,158,117,0.25);font-weight:500;">How to Read a Kaplan-Meier Survival Curve</a>.</p>
+        </article>
+
+        <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.15); border-radius: 12px;">
+            <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; margin: 0;">
+                <strong style="color: var(--amber);">Medical Disclaimer:</strong> This article is for informational purposes only. <a href="disclaimer.html" style="color: var(--accent-light);">Read full disclaimer</a>.
+                <br>Last updated: <time datetime="2026-02-12">February 2026</time>
+            </p>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">More Articles</p>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <a href="reading-kaplan-meier-curves.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-subtle);">How to Read a Kaplan-Meier Survival Curve →</a>
+                <a href="pfs-vs-os-endpoints.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-subtle);">PFS vs. OS: What Cancer Trial Endpoints Mean for Patients →</a>
+                <a href="precision-medicine-in-oncology.html" style="color: var(--accent-soft); text-decoration: none; font-size: 0.9rem; padding: 0.4rem 0;">Precision Medicine in Oncology: From Molecular Profiling to Treatment →</a>
+            </div>
+        </div>
+    </main>
+
+    <div style="max-width:1400px;margin:1.5rem auto;padding:0 2rem;">
+        <ins class="adsbygoogle" style="display:block;min-height:90px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer class="pe-footer">
+    <div class="pe-footer-inner">
+        <div class="pe-footer-grid">
+            <div><div class="pe-footer-brand"><span class="mark">Cancer Drug</span><span class="word">Evidence</span></div><p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p></div>
+            <div><h4>Platform</h4><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a><a href="methodology.html">Methodology</a></div>
+            <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="disclaimer.html">Medical Disclaimer</a><a href="terms.html">Terms of Use</a></div>
+            <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></div>
+        </div>
+        <div class="pe-footer-bottom">&copy; 2025 CancerDrugEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
+        </div>
+    </footer>
+
+    <script>
+    const header = document.getElementById('pe-header');
+    if (header) { window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 20); }); }
+    </script>
+    <script>
+    (function() { var bar = document.createElement('div'); bar.id = 'reading-progress'; bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#1D9E75,#5DCAA5,#1D9E75);z-index:10000;transition:width 0.1s linear;width:0;'; document.body.appendChild(bar); window.addEventListener('scroll', function() { var h = document.documentElement.scrollHeight - window.innerHeight; bar.style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%'; }); })();
+    (function() { var btn = document.createElement('button'); btn.innerHTML = '↑'; btn.id = 'back-to-top'; btn.style.cssText = 'position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;border-radius:50%;background:var(--accent,#1D9E75);color:#fff;border:none;font-size:1.2rem;cursor:pointer;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,0.3);transform:translateY(10px);'; document.body.appendChild(btn); window.addEventListener('scroll', function() { if (window.scrollY > 600) { btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; } else { btn.style.opacity = '0'; btn.style.transform = 'translateY(10px)'; } }); btn.addEventListener('click', function() { window.scrollTo({top:0,behavior:'smooth'}); }); })();
+    </script>
+
+<!-- Medical Disclaimer Banner -->
+<script>
+(function() {
+    try {
+        if (sessionStorage.getItem('pe_disclaimer_shown')) return;
+        sessionStorage.setItem('pe_disclaimer_shown', '1');
+        var d = document.createElement('div');
+        d.id = 'pe-med-disclaimer';
+        d.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"><span style="font-size:1.1rem;">⚕️</span><span><strong style="color:#fbbf24;">Medical Disclaimer:</strong> This content is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician or qualified healthcare provider. <a href="disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Read full disclaimer</a>.</span><button onclick="this.parentElement.parentElement.style.display='none'" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:0 0.25rem;flex-shrink:0;" aria-label="Close">✕</button></div>';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:10001;background:rgba(12,20,37,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.3);padding:0.75rem 1.5rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;animation:peDisclaimerSlide 0.4s ease-out;';
+        var style = document.createElement('style');
+        style.textContent = '@keyframes peDisclaimerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(style);
+        document.body.appendChild(d);
+        setTimeout(function() {
+            if (d && d.parentNode) {
+                d.style.transition = 'opacity 0.5s, transform 0.5s';
+                d.style.opacity = '0';
+                d.style.transform = 'translateY(-100%)';
+                setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500);
+            }
+        }, 8000);
+    } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

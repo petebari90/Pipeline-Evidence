@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Comparison Tool — Compare Cancer Therapies Side by Side | CancerDrugEvidence</title>
+    <meta name="description" content="Compare FDA and EMA-approved cancer drugs side by side. View mechanisms of action, indications, dosing schedules, adverse reactions with visual charts, and clinical trial data for 125+ oncology therapies.">
+    <link rel="canonical" href="https://cancerdrugevidence.com/compare">
+    <meta property="og:title" content="Drug Comparison Tool — Compare Cancer Therapies Side by Side">
+    <meta property="og:description" content="Compare FDA and EMA-approved cancer drugs side by side. Mechanisms, indications, dosing, adverse reactions, and pivotal trials for 125+ therapies.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cancerdrugevidence.com/compare">
+    <meta property="og:site_name" content="CancerDrugEvidence">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8142425589524717" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebApplication", "name": "CancerDrugEvidence Drug Comparison Tool", "description": "Compare FDA and EMA-approved cancer drugs side by side.", "url": "https://cancerdrugevidence.com/compare", "applicationCategory": "HealthApplication", "publisher": { "@type": "Organization", "name": "CancerDrugEvidence" } }
+    </script>
+    <style>
+        .compare-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .compare-header { text-align: center; padding: 2.5rem 0 2rem; }
+        .compare-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--text-primary); margin-bottom: 0.5rem; }
+        .compare-header p { color: var(--text-secondary); font-size: 1rem; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+        .selector-row { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: end; }
+        .selector-group { flex: 1; min-width: 250px; }
+        .selector-group label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .drug-select { width: 100%; padding: 0.7rem 2.5rem 0.7rem 1rem; font-size: 0.95rem; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" fill="none" stroke="%2394a3b8" stroke-width="1.5"/></svg>'); background-repeat: no-repeat; background-position: right 1rem center; transition: border-color 0.2s; }
+        .drug-select:focus { outline: none; border-color: var(--accent-light); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .drug-select:hover { border-color: rgba(59,130,246,0.4); }
+        .drug-select option { background: var(--bg-base); color: var(--text-primary); }
+        .compare-actions { display: flex; gap: 0.75rem; align-items: end; }
+        .btn-compare { padding: 0.7rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: #fff; background: var(--gradient-hero); border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .btn-compare:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(29,158,117,0.3); }
+        .btn-compare:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .btn-reset { padding: 0.7rem 1rem; font-size: 0.9rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .btn-reset:hover { border-color: var(--accent-light); color: var(--accent-light); }
+        .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 2rem; }
+        .compare-table th, .compare-table td { padding: 1rem 1.25rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
+        .compare-table th { background: var(--bg-card); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); position: sticky; top: 0; z-index: 10; }
+        .compare-table td { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+        .compare-table .row-label { font-weight: 600; color: var(--text-primary); white-space: nowrap; width: 175px; min-width: 175px; background: rgba(12,20,37,0.5); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .compare-table .drug-col { width: 50%; }
+        .compare-table tr:hover td { background: rgba(29,158,117,0.03); }
+        .compare-table .drug-name-cell { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+        .compare-table .drug-name-cell .generic { color: var(--accent-soft); font-style: italic; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 0.15rem; }
+        .compare-table .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin: 0.15rem 0.15rem 0.15rem 0; }
+        .badge-class { background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); }
+        .badge-approval { background: rgba(0,230,160,0.08); color: var(--emerald); border: 1px solid rgba(0,230,160,0.15); }
+        .badge-mfr { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
+        .trial-item { margin-bottom: 0.5rem; }
+        .trial-name { font-weight: 600; color: var(--accent-soft); }
+        .trial-desc { font-size: 0.85rem; color: var(--text-muted); }
+        .view-full-link { display: inline-block; margin-top: 0.5rem; font-size: 0.82rem; color: var(--accent-soft); text-decoration: none; border-bottom: 1px solid rgba(29,158,117,0.25); font-weight: 500; }
+        .view-full-link:hover { color: var(--accent-light); }
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-state h3 { font-family: var(--font-display); color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .popular-comparisons { margin: 2rem 0; }
+        .popular-comparisons h3 { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .comparison-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .comparison-chip { padding: 0.4rem 0.9rem; font-size: 0.82rem; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .comparison-chip:hover { border-color: var(--accent-light); color: var(--accent-light); background: rgba(29,158,117,0.05); }
+        .section-header td { background: rgba(29,158,117,0.04) !important; border-bottom: 2px solid rgba(29,158,117,0.15); padding: 0.65rem 1.25rem; }
+        .section-header .section-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.1em; }
+        .dosing-cell { background: rgba(0,230,160,0.02); }
+        .dosing-cell .dose-detail { font-size: 0.88rem; line-height: 1.7; }
+        .route-tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 8px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; margin-right: 0.25rem; }
+        .route-oral { background: rgba(0,230,160,0.1); color: var(--emerald); border: 1px solid rgba(0,230,160,0.2); }
+        .route-iv { background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); }
+        .route-sc { background: rgba(167,139,250,0.1); color: var(--violet); border: 1px solid rgba(167,139,250,0.2); }
+        .route-other { background: rgba(251,191,36,0.08); color: var(--amber); border: 1px solid rgba(251,191,36,0.15); }
+        .highlight-diff { background: rgba(251,191,36,0.06); border-left: 2px solid rgba(251,191,36,0.3); padding-left: 0.75rem; }
+
+        /* AE Chart Styles */
+        .ae-chart-container { padding: 1.5rem; margin-bottom: 0.5rem; }
+        .ae-chart-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+        .ae-chart-subtitle { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+        .ae-legend { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .ae-legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--text-secondary); }
+        .ae-legend-swatch { width: 14px; height: 14px; border-radius: 3px; }
+        .ae-row { display: flex; align-items: center; margin-bottom: 0.55rem; gap: 0; }
+        .ae-label { width: 170px; min-width: 170px; font-size: 0.8rem; color: var(--text-secondary); text-align: right; padding-right: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ae-bars { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+        .ae-bar-row { display: flex; align-items: center; height: 16px; gap: 6px; }
+        .ae-bar { height: 100%; border-radius: 3px; min-width: 2px; transition: width 0.5s ease; position: relative; }
+        .ae-bar-a { background: rgba(29,158,117,0.7); }
+        .ae-bar-b { background: rgba(167,139,250,0.7); }
+        .ae-pct { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; min-width: 32px; }
+        .ae-bar:hover { filter: brightness(1.2); }
+        .ae-common-badge { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 6px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-left: 6px; }
+        .ae-common-both { background: rgba(251,191,36,0.12); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+        .ae-only-a { background: rgba(29,158,117,0.08); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.15); }
+        .ae-only-b { background: rgba(167,139,250,0.08); color: var(--violet); border: 1px solid rgba(167,139,250,0.15); }
+        .ae-filter-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .ae-filter-btn { padding: 0.3rem 0.7rem; font-size: 0.75rem; border-radius: 16px; border: 1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+        .ae-filter-btn.active { border-color: var(--accent-light); color: var(--accent-light); background: rgba(29,158,117,0.08); }
+        .ae-filter-btn:hover { border-color: rgba(29,158,117,0.4); }
+
+        /* Key Differences Card */
+        .key-diff-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+        .key-diff-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.75rem; }
+        .key-diff-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+        .key-diff-item { text-align: center; }
+        .key-diff-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 0.3rem; }
+        .key-diff-value { font-size: 0.88rem; color: var(--text-primary); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .compare-table { display: block; overflow-x: auto; }
+            .compare-table .row-label { min-width: 120px; width: 120px; font-size: 0.75rem; }
+            .selector-row { flex-direction: column; }
+            .ae-label { width: 100px; min-width: 100px; font-size: 0.7rem; }
+            .key-diff-grid { grid-template-columns: 1fr; }
+        }
+
+        /* AI Summary Styles */
+        .ai-summary-card { background: linear-gradient(135deg, rgba(29,158,117,0.04) 0%, rgba(167,139,250,0.04) 100%); border: 1px solid rgba(29,158,117,0.15); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; }
+        .ai-summary-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .ai-summary-icon { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, rgba(29,158,117,0.15), rgba(167,139,250,0.15)); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+        .ai-summary-label { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+        .ai-summary-badge { font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 6px; background: rgba(29,158,117,0.1); color: var(--accent-light); border: 1px solid rgba(29,158,117,0.2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .ai-summary-body { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; }
+        .ai-summary-body p { margin: 0 0 0.6rem 0; }
+        .ai-summary-body p:last-child { margin-bottom: 0; }
+        .ai-summary-loading { display: flex; align-items: center; gap: 0.6rem; color: var(--text-muted); font-size: 0.85rem; padding: 0.5rem 0; }
+        .ai-summary-loading .dot-pulse { display: inline-flex; gap: 4px; }
+        .ai-summary-loading .dot-pulse span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); opacity: 0.4; animation: dotPulse 1.2s infinite ease-in-out; }
+        .ai-summary-loading .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-summary-loading .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1.1); } }
+        .ai-summary-error { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+        .ai-disclaimer { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px solid var(--border-subtle); }
+    </style>
+</head>
+<body>
+    <header class="pe-header" id="pe-header">
+        <div class="pe-header-inner">
+            <a href="index.html" class="pe-logo"><svg class="pe-logo-icon" viewBox="0 0 90 80" xmlns="http://www.w3.org/2000/svg"><path d="M54 8 A36 36 0 1 0 54 72" stroke="#1D9E75" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="54" cy="40" r="7" fill="#1D9E75"/><circle cx="78" cy="22" r="4.5" fill="#0F6E56"/><circle cx="83" cy="40" r="4.5" fill="#0F6E56"/><circle cx="78" cy="58" r="4.5" fill="#0F6E56"/><line x1="60" y1="36" x2="75" y2="24" stroke="#5DCAA5" stroke-width="1.5"/><line x1="61" y1="40" x2="78" y2="40" stroke="#5DCAA5" stroke-width="1.5"/><line x1="60" y1="44" x2="75" y2="56" stroke="#5DCAA5" stroke-width="1.5"/></svg><span class="mark">Cancer Drug</span><span class="word">Evidence</span></a>
+            <nav class="pe-nav"><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a>
+                <a href="compare.html">Compare</a><a href="methodology.html">Methodology</a><a href="about.html">About</a></nav>
+        </div>
+    </header>
+
+    <div class="compare-container">
+        <div class="compare-header">
+            <nav style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <a href="index.html" style="color: var(--text-muted); text-decoration: none;">Home</a> &rsaquo;
+                <span style="color: var(--text-secondary);">Drug Comparison Tool</span>
+            </nav>
+            <h1>Compare Cancer Therapies</h1>
+            <p>Select two drugs to compare their mechanisms, indications, dosing &amp; schedule, side effects, pharmacokinetics, and clinical trial data side by side.</p>
+        </div>
+
+        <div class="selector-row">
+            <div class="selector-group">
+                <label for="drug-a">Drug A</label>
+                <select id="drug-a" class="drug-select"><option value="">Select a drug...</option></select>
+            </div>
+            <div class="selector-group">
+                <label for="drug-b">Drug B</label>
+                <select id="drug-b" class="drug-select"><option value="">Select a drug...</option></select>
+            </div>
+            <div class="compare-actions">
+                <button class="btn-compare" id="btn-compare" disabled onclick="runCompare()">Compare →</button>
+                <button class="btn-reset" onclick="resetCompare()">Reset</button>
+            </div>
+        </div>
+
+        <div id="comparison-result">
+            <div class="empty-state" id="empty-state">
+                <div class="icon">⚖️</div>
+                <h3>Select two drugs to compare</h3>
+                <p>Choose from 125+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p>
+            </div>
+        </div>
+
+        <div class="popular-comparisons" id="popular-section">
+            <h3>Popular Comparisons</h3>
+            <div class="comparison-chips">
+                <a class="comparison-chip" onclick="quickCompare('keytruda','opdivo')">Keytruda vs. Opdivo</a>
+                <a class="comparison-chip" onclick="quickCompare('ibrance','kisqali')">Ibrance vs. Kisqali</a>
+                <a class="comparison-chip" onclick="quickCompare('tagrisso','alecensa')">Tagrisso vs. Alecensa</a>
+                <a class="comparison-chip" onclick="quickCompare('enhertu','kadcyla')">Enhertu vs. Kadcyla</a>
+                <a class="comparison-chip" onclick="quickCompare('revlimid','pomalyst')">Revlimid vs. Pomalyst</a>
+                <a class="comparison-chip" onclick="quickCompare('imbruvica','calquence')">Imbruvica vs. Calquence</a>
+                <a class="comparison-chip" onclick="quickCompare('darzalex','sarclisa')">Darzalex vs. Sarclisa</a>
+                <a class="comparison-chip" onclick="quickCompare('padcev','trodelvy')">Padcev vs. Trodelvy</a>
+                <a class="comparison-chip" onclick="quickCompare('lynparza','rubraca')">Lynparza vs. Rubraca</a>
+                <a class="comparison-chip" onclick="quickCompare('verzenio','kisqali')">Verzenio vs. Kisqali</a>
+                <a class="comparison-chip" onclick="quickCompare('yescarta','breyanzi')">Yescarta vs. Breyanzi</a>
+                <a class="comparison-chip" onclick="quickCompare('tecentriq','imfinzi')">Tecentriq vs. Imfinzi</a>
+            </div>
+        </div>
+
+        <!-- AdSense -->
+        <div style="margin: 2rem 0; text-align: center;">
+            <ins class="adsbygoogle" style="display:block; min-height:250px;" data-ad-client="ca-pub-8142425589524717" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <footer class="pe-footer">
+    <div class="pe-footer-inner">
+        <div class="pe-footer-grid">
+            <div><div class="pe-footer-brand"><span class="mark">Cancer Drug</span><span class="word">Evidence</span></div><p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; max-width: 280px;">Comprehensive oncology intelligence for patients, caregivers, and healthcare professionals.</p></div>
+            <div><h4>Platform</h4><a href="all-therapies.html">All Therapies</a><a href="drug-library.html">Drug Library</a><a href="glossary.html">Glossary</a><a href="articles.html">Articles</a><a href="methodology.html">Methodology</a></div>
+            <div><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a><a href="disclaimer.html">Medical Disclaimer</a><a href="terms.html">Terms of Use</a></div>
+            <div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="disclaimer.html">Disclaimer</a></div>
+        </div>
+        <div class="pe-footer-bottom">&copy; 2025 CancerDrugEvidence. For informational purposes only. Not a substitute for professional medical advice.</div>
+        </div>
+    </footer>
+
+    <script src="drug-compare-data.js"></script>
+    <script>
+    const selA = document.getElementById('drug-a');
+    const selB = document.getElementById('drug-b');
+    const btnCompare = document.getElementById('btn-compare');
+
+    DRUG_DATA.sort((a,b) => a.b.localeCompare(b.b));
+    DRUG_DATA.forEach(d => {
+        const label = d.g ? d.b + ' (' + d.g + ')' : d.b;
+        selA.innerHTML += '<option value="' + d.s + '">' + label + '</option>';
+        selB.innerHTML += '<option value="' + d.s + '">' + label + '</option>';
+    });
+
+    function updateBtn() { btnCompare.disabled = !(selA.value && selB.value && selA.value !== selB.value); }
+    selA.addEventListener('change', updateBtn);
+    selB.addEventListener('change', updateBtn);
+    function getDrug(slug) { return DRUG_DATA.find(d => d.s === slug); }
+    function esc(str) { if (!str) return ''; const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+    // Parse AE string into [{name, pct}]
+    function parseAE(aeStr) {
+        if (!aeStr) return [];
+        const items = [];
+        // Match patterns like "Fatigue (34%)" or "hand-foot syndrome (27%)"
+        const regex = /([^,]+?)\s*\((\d+(?:[–-]\d+)?(?:\.\d+)?)%?\)/g;
+        let m;
+        while ((m = regex.exec(aeStr)) !== null) {
+            let name = m[1].trim();
+            // Clean leading commas/semicolons
+            name = name.replace(/^[,;\s]+/, '');
+            let pctStr = m[2];
+            // Handle ranges like "20-36" — take the higher value
+            if (pctStr.includes('–') || pctStr.includes('-')) {
+                const parts = pctStr.split(/[–-]/);
+                pctStr = parts[parts.length - 1];
+            }
+            const pct = parseFloat(pctStr);
+            if (!isNaN(pct) && name.length > 0) {
+                items.push({name: name, pct: pct});
+            }
+        }
+        return items;
+    }
+
+    // Normalize AE names for matching
+    function normalizeAE(name) {
+        return name.toLowerCase()
+            .replace(/[^a-z0-9\s]/g, '')
+            .replace(/\s+/g, ' ').trim()
+            // Common normalizations
+            .replace(/^decreased /, '').replace(/^increased /, '')
+            .replace(/upper respiratory tract infection/, 'uri')
+            .replace(/ppe\/hand-foot syndrome|palmar-plantar erythrodysesthesia|hand-foot skin reaction|hand-foot syndrome/, 'ppe')
+            .replace(/musculoskeletal pain|arthralgia\/myalgia|myalgia\/arthralgia/, 'msk pain')
+            .replace(/peripheral neuropathy|neuropathy/, 'neuropathy')
+            .replace(/^fatigue\/asthenia$|^asthenia$/, 'fatigue')
+            .replace(/infusion-related reactions|infusion reactions/, 'irr');
+    }
+
+    function detectRoute(dosingText) {
+        if (!dosingText) return [];
+        const d = dosingText.toLowerCase();
+        const routes = [];
+        if (/\borally\b|\boral\b|\btablet|\bcapsule|\bby mouth/.test(d)) routes.push({label: 'Oral', cls: 'route-oral'});
+        if (/\biv\b|\bintravenous|\binfusion\b/.test(d)) routes.push({label: 'IV', cls: 'route-iv'});
+        if (/\bsc\b|\bsubcutaneous/.test(d)) routes.push({label: 'SC', cls: 'route-sc'});
+        if (/\bintralesional|\bintravesical|\bintrathecal/.test(d)) routes.push({label: 'Local', cls: 'route-other'});
+        if (/\bim\b|\bintramuscular/.test(d)) routes.push({label: 'IM', cls: 'route-other'});
+        if (/\bimplant|\bwafer/.test(d)) routes.push({label: 'Implant', cls: 'route-other'});
+        if (/\btransducer|\bdevice|\barrays/.test(d)) routes.push({label: 'Device', cls: 'route-other'});
+        if (/\bradiopharm|\bgbq|\bmci\b|\bradio/.test(d)) routes.push({label: 'Radiopharm', cls: 'route-other'});
+        return routes.length ? routes : [{label: 'See label', cls: 'route-other'}];
+    }
+
+    function renderDosing(d) {
+        if (!d.d) return '<span style="color:var(--text-muted);font-style:italic;">See full drug page</span>';
+        const routes = detectRoute(d.d);
+        let html = '<div class="dose-detail">';
+        html += '<div style="margin-bottom:0.4rem;">';
+        routes.forEach(r => { html += '<span class="route-tag ' + r.cls + '">' + r.label + '</span>'; });
+        html += '</div>';
+        html += esc(d.d) + '</div>';
+        return html;
+    }
+
+    function renderField(val, ph) {
+        if (!val || val.trim() === '') return '<span style="color:var(--text-muted);font-style:italic;">' + (ph || 'See full drug page') + '</span>';
+        return esc(val);
+    }
+
+    function renderTrials(trials) {
+        if (!trials || !trials.length) return '<span style="color:var(--text-muted);font-style:italic;">See full drug page for trial details</span>';
+        return trials.map(t => '<div class="trial-item"><span class="trial-name">' + esc(t.name) + '</span> — <span class="trial-desc">' + esc(t.desc) + '</span></div>').join('');
+    }
+
+    // Build AE comparison chart
+    function buildAEChart(a, b) {
+        const aeA = parseAE(a.ae);
+        const aeB = parseAE(b.ae);
+        if (!aeA.length && !aeB.length) return '';
+
+        // Build unified list: match by normalized name
+        const mapA = new Map();
+        const mapB = new Map();
+        aeA.forEach(ae => mapA.set(normalizeAE(ae.name), ae));
+        aeB.forEach(ae => mapB.set(normalizeAE(ae.name), ae));
+
+        const allKeys = new Set([...mapA.keys(), ...mapB.keys()]);
+        let unified = [];
+        allKeys.forEach(key => {
+            const aa = mapA.get(key);
+            const bb = mapB.get(key);
+            unified.push({
+                name: (aa ? aa.name : bb.name),
+                pctA: aa ? aa.pct : 0,
+                pctB: bb ? bb.pct : 0,
+                both: !!(aa && bb),
+                onlyA: !!(aa && !bb),
+                onlyB: !!(!aa && bb),
+                maxPct: Math.max(aa ? aa.pct : 0, bb ? bb.pct : 0)
+            });
+        });
+
+        // Sort by max percentage descending
+        unified.sort((x, y) => y.maxPct - x.maxPct);
+
+        // Limit to top items to keep chart readable
+        const topN = Math.min(unified.length, 20);
+        const chartData = unified.slice(0, topN);
+        const maxPct = Math.max(...chartData.map(d => d.maxPct), 10);
+
+        let html = '<div class="ae-chart-container">';
+        html += '<div class="ae-chart-title">Adverse Event Comparison</div>';
+        html += '<div class="ae-chart-subtitle">Incidence rates (%) from FDA prescribing information — any grade, ≥ approx. 10% incidence</div>';
+
+        // Legend
+        html += '<div class="ae-legend">';
+        html += '<div class="ae-legend-item"><div class="ae-legend-swatch" style="background:rgba(29,158,117,0.7);"></div>' + esc(a.b) + '</div>';
+        html += '<div class="ae-legend-item"><div class="ae-legend-swatch" style="background:rgba(167,139,250,0.7);"></div>' + esc(b.b) + '</div>';
+        html += '<div class="ae-legend-item"><span class="ae-common-badge ae-common-both">shared</span> Reported with both drugs</div>';
+        html += '</div>';
+
+        // Filter buttons
+        html += '<div class="ae-filter-row">';
+        html += '<button class="ae-filter-btn active" data-filter="all" onclick="filterAE(this)">All</button>';
+        html += '<button class="ae-filter-btn" data-filter="shared" onclick="filterAE(this)">Shared AEs</button>';
+        html += '<button class="ae-filter-btn" data-filter="unique-a" onclick="filterAE(this)">Only ' + esc(a.b) + '</button>';
+        html += '<button class="ae-filter-btn" data-filter="unique-b" onclick="filterAE(this)">Only ' + esc(b.b) + '</button>';
+        html += '<button class="ae-filter-btn" data-filter="high" onclick="filterAE(this)">≥30%</button>';
+        html += '</div>';
+
+        // Chart rows
+        chartData.forEach(item => {
+            const widthA = (item.pctA / maxPct) * 100;
+            const widthB = (item.pctB / maxPct) * 100;
+            let filterClass = '';
+            if (item.both) filterClass = 'ae-shared';
+            else if (item.onlyA) filterClass = 'ae-unique-a';
+            else filterClass = 'ae-unique-b';
+            const highClass = item.maxPct >= 30 ? ' ae-high' : '';
+
+            html += '<div class="ae-row ' + filterClass + highClass + '">';
+            html += '<div class="ae-label" title="' + esc(item.name) + '">' + esc(item.name);
+            if (item.both) html += '<span class="ae-common-badge ae-common-both">both</span>';
+            html += '</div>';
+            html += '<div class="ae-bars">';
+
+            // Drug A bar
+            html += '<div class="ae-bar-row">';
+            if (item.pctA > 0) {
+                html += '<div class="ae-bar ae-bar-a" style="width:' + widthA + '%" title="' + esc(a.b) + ': ' + item.pctA + '%"></div>';
+                html += '<span class="ae-pct" style="color:rgba(29,158,117,0.9);">' + item.pctA + '%</span>';
+            } else {
+                html += '<div class="ae-bar ae-bar-a" style="width:0%"></div>';
+                html += '<span class="ae-pct" style="color:var(--text-muted);">—</span>';
+            }
+            html += '</div>';
+
+            // Drug B bar
+            html += '<div class="ae-bar-row">';
+            if (item.pctB > 0) {
+                html += '<div class="ae-bar ae-bar-b" style="width:' + widthB + '%" title="' + esc(b.b) + ': ' + item.pctB + '%"></div>';
+                html += '<span class="ae-pct" style="color:rgba(167,139,250,0.9);">' + item.pctB + '%</span>';
+            } else {
+                html += '<div class="ae-bar ae-bar-b" style="width:0%"></div>';
+                html += '<span class="ae-pct" style="color:var(--text-muted);">—</span>';
+            }
+            html += '</div>';
+
+            html += '</div></div>';
+        });
+
+        if (unified.length > topN) {
+            html += '<div style="text-align:center;padding:0.5rem;font-size:0.78rem;color:var(--text-muted);">Showing top ' + topN + ' of ' + unified.length + ' adverse events. See individual drug pages for complete safety profiles.</div>';
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    // Build key differences summary card
+    function buildKeyDifferences(a, b) {
+        const routeA = detectRoute(a.d).map(r => r.label).join('/');
+        const routeB = detectRoute(b.d).map(r => r.label).join('/');
+        const classMatch = a.c === b.c ? 'Same class' : 'Different';
+        const aeA = parseAE(a.ae);
+        const aeB = parseAE(b.ae);
+
+        // Find highest-incidence unique AEs
+        const normA = new Set(aeA.map(x => normalizeAE(x.name)));
+        const normB = new Set(aeB.map(x => normalizeAE(x.name)));
+        const uniqueToA = aeA.filter(x => !normB.has(normalizeAE(x.name))).sort((x,y) => y.pct - x.pct);
+        const uniqueToB = aeB.filter(x => !normA.has(normalizeAE(x.name))).sort((x,y) => y.pct - x.pct);
+
+        let html = '<div class="key-diff-card">';
+        html += '<div class="key-diff-title">⚡ Key Differences at a Glance</div>';
+        html += '<div class="key-diff-grid">';
+
+        // Route
+        html += '<div class="key-diff-item"><div class="key-diff-label">Route of Administration</div>';
+        html += '<div class="key-diff-value"><span style="color:rgba(29,158,117,0.9);">' + esc(a.b) + ':</span> ' + esc(routeA) + '<br><span style="color:rgba(167,139,250,0.9);">' + esc(b.b) + ':</span> ' + esc(routeB) + '</div></div>';
+
+        // Drug Class
+        html += '<div class="key-diff-item"><div class="key-diff-label">Drug Class</div>';
+        if (a.c === b.c) {
+            html += '<div class="key-diff-value" style="color:var(--emerald);">Same class<br><span style="font-weight:400;font-size:0.8rem;color:var(--text-muted);">' + esc(a.c) + '</span></div>';
+        } else {
+            html += '<div class="key-diff-value"><span style="color:rgba(29,158,117,0.9);font-size:0.82rem;">' + esc(a.c || 'N/A') + '</span><br><span style="color:rgba(167,139,250,0.9);font-size:0.82rem;">' + esc(b.c || 'N/A') + '</span></div>';
+        }
+        html += '</div>';
+
+        // Unique notable AEs
+        html += '<div class="key-diff-item"><div class="key-diff-label">Notable Unique AEs</div><div class="key-diff-value" style="font-size:0.82rem;">';
+        if (uniqueToA.length) html += '<span style="color:rgba(29,158,117,0.9);">' + esc(a.b) + ':</span> ' + esc(uniqueToA.slice(0,2).map(x => x.name + ' (' + x.pct + '%)').join(', '));
+        if (uniqueToA.length && uniqueToB.length) html += '<br>';
+        if (uniqueToB.length) html += '<span style="color:rgba(167,139,250,0.9);">' + esc(b.b) + ':</span> ' + esc(uniqueToB.slice(0,2).map(x => x.name + ' (' + x.pct + '%)').join(', '));
+        if (!uniqueToA.length && !uniqueToB.length) html += '<span style="color:var(--text-muted);">Similar AE profiles</span>';
+        html += '</div></div>';
+
+        html += '</div></div>';
+        return html;
+    }
+
+    // AE filter handler
+    function filterAE(btn) {
+        document.querySelectorAll('.ae-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.ae-row').forEach(row => {
+            if (filter === 'all') { row.style.display = ''; }
+            else if (filter === 'shared') { row.style.display = row.classList.contains('ae-shared') ? '' : 'none'; }
+            else if (filter === 'unique-a') { row.style.display = row.classList.contains('ae-unique-a') ? '' : 'none'; }
+            else if (filter === 'unique-b') { row.style.display = row.classList.contains('ae-unique-b') ? '' : 'none'; }
+            else if (filter === 'high') { row.style.display = row.classList.contains('ae-high') ? '' : 'none'; }
+        });
+    }
+
+    function runCompare() {
+        const a = getDrug(selA.value);
+        const b = getDrug(selB.value);
+        if (!a || !b) return;
+
+        document.getElementById('empty-state').style.display = 'none';
+        document.getElementById('popular-section').style.display = 'none';
+
+        const sections = [
+            { title: 'Overview', rows: [
+                {label: 'Drug Name', key: 'name', render: d => '<div class="drug-name-cell">' + esc(d.b) + '<span class="generic">' + esc(d.g) + '</span></div>'},
+                {label: 'Drug Class', key: 'c', render: d => d.c ? '<span class="badge badge-class">' + esc(d.c) + '</span>' : renderField('')},
+                {label: 'FDA Approval', key: 'a', render: d => d.a ? '<span class="badge badge-approval">' + esc(d.a) + '</span>' : renderField('')},
+                {label: 'Manufacturer', key: 'm', render: d => d.m ? '<span class="badge badge-mfr">' + esc(d.m) + '</span>' : renderField('')},
+            ]},
+            { title: 'Mechanism & Indications', rows: [
+                {label: 'Mechanism of Action', key: 'moa', render: d => renderField(d.moa)},
+                {label: 'Approved Indications', key: 'i', render: d => renderField(d.i)},
+            ]},
+            { title: 'Dosing & Administration', rows: [
+                {label: 'Dosing & Schedule', key: 'd', render: d => renderDosing(d), cls: 'dosing-cell'},
+            ]},
+            { title: 'Pharmacokinetics', rows: [
+                {label: 'PK Summary', key: 'pk', render: d => renderField(d.pk, 'See full drug page for PK data')},
+            ]},
+            { title: 'Clinical Evidence', rows: [
+                {label: 'Pivotal Trials', key: 't', render: d => renderTrials(d.t)},
+                {label: 'Full Profile', key: 'link', render: d => '<a href="drugs/' + d.s + '.html" class="view-full-link">View complete ' + esc(d.b) + ' profile →</a>'},
+            ]}
+        ];
+
+        // Key differences card
+        let html = buildKeyDifferences(a, b);
+
+        // Main comparison table
+        html += '<table class="compare-table">';
+        html += '<thead><tr><th style="width:175px;"></th><th class="drug-col">' + esc(a.b) + '</th><th class="drug-col">' + esc(b.b) + '</th></tr></thead>';
+        html += '<tbody>';
+
+        sections.forEach(section => {
+            html += '<tr class="section-header"><td colspan="3"><span class="section-title">' + section.title + '</span></td></tr>';
+            section.rows.forEach(row => {
+                const valA = row.render(a);
+                const valB = row.render(b);
+                const isDiff = row.key !== 'name' && row.key !== 'link' && row.key !== 't' && a[row.key] && b[row.key] && a[row.key] !== b[row.key];
+                const diffClass = isDiff ? ' highlight-diff' : '';
+                const extraClass = row.cls ? ' ' + row.cls : '';
+                html += '<tr><td class="row-label">' + row.label + '</td>';
+                html += '<td class="drug-col' + diffClass + extraClass + '">' + valA + '</td>';
+                html += '<td class="drug-col' + diffClass + extraClass + '">' + valB + '</td></tr>';
+            });
+        });
+
+        html += '</tbody></table>';
+
+        // AE Chart (full width, outside table)
+        html += '<div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden;margin-bottom:2rem;">';
+        html += buildAEChart(a, b);
+        // AI Summary container inside the AE card
+        html += '<div id="ai-ae-summary" class="ai-summary-card" style="margin:0 1.5rem 1.5rem;">';
+        html += '<div class="ai-summary-header"><div class="ai-summary-icon">🧠</div><span class="ai-summary-label">AI Safety Profile Analysis</span><span class="ai-summary-badge">AI-Generated</span></div>';
+        html += '<div id="ai-ae-summary-body" class="ai-summary-body"><div class="ai-summary-loading">Analyzing adverse event profiles<div class="dot-pulse"><span></span><span></span><span></span></div></div></div>';
+        html += '</div>';
+        html += '</div>';
+
+        // Disclaimer
+        html += '<div style="padding:1rem 1.25rem;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:10px;margin-bottom:2rem;">';
+        html += '<p style="color:var(--text-secondary);font-size:0.82rem;line-height:1.6;margin:0;"><strong style="color:var(--amber);">Important:</strong> This comparison is for informational purposes only. Dosing and adverse event data is summarized from FDA-approved prescribing information. Incidence rates may differ across indications, trial populations, and dosing schedules. Drug selection should always be made by a qualified healthcare provider based on individual patient factors. <a href="disclaimer.html" style="color:var(--accent-soft);">Read full disclaimer</a>.</p>';
+        html += '</div>';
+
+        // Action buttons
+        html += '<div style="text-align:center;margin-bottom:2rem;">';
+        html += '<button onclick="window.print()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🖨 Print</button>';
+        html += '<button onclick="resetCompare()" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--accent-soft);background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);border-radius:8px;cursor:pointer;margin:0 0.25rem;">⚖️ New Comparison</button>';
+        html += '<button onclick="shareCmp(event)" style="padding:0.5rem 1.25rem;font-size:0.85rem;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;margin:0 0.25rem;">🔗 Copy Link</button>';
+        html += '</div>';
+
+        document.getElementById('comparison-result').innerHTML = html;
+        document.getElementById('comparison-result').scrollIntoView({behavior: 'smooth', block: 'start'});
+
+        const url = new URL(window.location);
+        url.searchParams.set('a', selA.value);
+        url.searchParams.set('b', selB.value);
+        window.history.replaceState({}, '', url);
+
+        // Trigger AI AE summary
+        fetchAESummary(a, b);
+    }
+
+    // AI-powered AE summary using Anthropic API
+    async function fetchAESummary(a, b) {
+        const summaryEl = document.getElementById('ai-ae-summary-body');
+        if (!summaryEl) return;
+
+        // Build structured AE data for the prompt
+        const aeA = parseAE(a.ae);
+        const aeB = parseAE(b.ae);
+
+        if (!aeA.length && !aeB.length) {
+            summaryEl.innerHTML = '<div class="ai-summary-error">Insufficient adverse event data available for AI analysis.</div>';
+            return;
+        }
+
+        const aeAStr = aeA.map(x => x.name + ' (' + x.pct + '%)').join(', ');
+        const aeBStr = aeB.map(x => x.name + ' (' + x.pct + '%)').join(', ');
+
+        const prompt = `You are a clinical oncology pharmacist providing an expert safety profile comparison for a drug information reference website. Compare the adverse event profiles of these two cancer drugs concisely.
+
+Drug A: ${a.b} (${a.g || 'N/A'}) — ${a.c || 'N/A'}
+AEs: ${aeAStr || 'Limited data'}
+Dosing: ${a.d || 'N/A'}
+
+Drug B: ${b.b} (${b.g || 'N/A'}) — ${b.c || 'N/A'}
+AEs: ${aeBStr || 'Limited data'}
+Dosing: ${b.d || 'N/A'}
+
+Write 3-4 concise paragraphs (use <p> tags) covering:
+1. Overall tolerability comparison — which has higher-frequency AEs and what are the dominant toxicities for each
+2. Key differentiating AEs — toxicities unique or notably more pronounced with one drug vs the other that may influence drug selection (e.g. cardiac, GI, heme, neuro, dermatologic, pulmonary)
+3. Practical clinical considerations — monitoring requirements, dose modification triggers, patient counseling points, or quality-of-life implications relevant to choosing between these agents
+
+Be specific with percentages. Be balanced and evidence-based. Do not recommend one drug over the other. Do not use bullet points — write in clinical prose. Keep the total under 200 words.`;
+
+        try {
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 1000,
+                    messages: [{ role: 'user', content: prompt }]
+                })
+            });
+
+            if (!response.ok) throw new Error('API request failed');
+
+            const data = await response.json();
+            const text = data.content
+                .filter(item => item.type === 'text')
+                .map(item => item.text)
+                .join('');
+
+            if (text) {
+                summaryEl.innerHTML = text + '<div class="ai-disclaimer">⚕️ AI-generated summary based on FDA prescribing information. Not a substitute for clinical judgment. Incidence rates may vary across indications and trial populations. Always consult the full prescribing information.</div>';
+            } else {
+                throw new Error('Empty response');
+            }
+        } catch (err) {
+            console.error('AI AE summary error:', err);
+            summaryEl.innerHTML = '<div class="ai-summary-error">AI analysis unavailable. Review the adverse event chart above for a visual comparison of safety profiles.</div>';
+        }
+    }
+
+    function shareCmp(e) {
+        const url = window.location.href;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = e.target;
+                const orig = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => { btn.textContent = orig; }, 2000);
+            });
+        }
+    }
+    function quickCompare(slugA, slugB) { selA.value = slugA; selB.value = slugB; updateBtn(); runCompare(); }
+    function resetCompare() {
+        selA.value = ''; selB.value = ''; updateBtn();
+        document.getElementById('comparison-result').innerHTML = '<div class="empty-state" id="empty-state"><div class="icon">⚖️</div><h3>Select two drugs to compare</h3><p>Choose from 125+ FDA and EMA-approved oncology therapies above, or try a popular comparison below.</p></div>';
+        document.getElementById('popular-section').style.display = '';
+        const url = new URL(window.location); url.searchParams.delete('a'); url.searchParams.delete('b'); window.history.replaceState({}, '', url);
+    }
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('a') && params.get('b')) { selA.value = params.get('a'); selB.value = params.get('b'); updateBtn(); if (selA.value && selB.value) runCompare(); }
+    </script>
+
+    <script>
+    const header = document.getElementById('pe-header');
+    if (header) { window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 20); }); }
+    </script>
+
+<!-- Medical Disclaimer Banner -->
+<script>
+(function() {
+    try {
+        if (sessionStorage.getItem('pe_disclaimer_shown')) return;
+        sessionStorage.setItem('pe_disclaimer_shown', '1');
+        var d = document.createElement('div');
+        d.id = 'pe-med-disclaimer';
+        d.innerHTML = '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;"><span style="font-size:1.1rem;">⚕️</span><span><strong style="color:#fbbf24;">Medical Disclaimer:</strong> This content is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult your physician or qualified healthcare provider. <a href="disclaimer.html" style="color:#38bdf8;text-decoration:underline;">Read full disclaimer</a>.</span><button onclick="this.parentElement.parentElement.style.display=\'none\'" style="background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:0 0.25rem;flex-shrink:0;" aria-label="Close">✕</button></div>';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:10001;background:rgba(12,20,37,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.3);padding:0.75rem 1.5rem;font-size:0.82rem;color:#94a3b8;line-height:1.6;animation:peDisclaimerSlide 0.4s ease-out;';
+        var style = document.createElement('style');
+        style.textContent = '@keyframes peDisclaimerSlide{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}';
+        document.head.appendChild(style);
+        document.body.appendChild(d);
+        setTimeout(function() {
+            if (d && d.parentNode) { d.style.transition = 'opacity 0.5s, transform 0.5s'; d.style.opacity = '0'; d.style.transform = 'translateY(-100%)'; setTimeout(function() { if (d.parentNode) d.parentNode.removeChild(d); }, 500); }
+        }, 8000);
+    } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

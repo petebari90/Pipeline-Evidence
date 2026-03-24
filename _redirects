@@ -14,3 +14,13 @@
 
 # index.html redirect
 /index.html                /                   301!
+
+# New drug pages added 2026-03
+/drugs/gleevec-eu     /drugs/glivec    301!
+/drugs/hycamtin       /drugs/topotecan  301!
+/drugs/abraxane-generic  /drugs/paclitaxel  301!
+/drugs/folfirinox.html  /drugs/folfirinox  301!
+/drugs/bep.html       /drugs/bep       301!
+/drugs/cvd.html       /drugs/cvd       301!
+/drugs/map.html       /drugs/map       301!
+/drugs/vdc.html       /drugs/vdc       301!

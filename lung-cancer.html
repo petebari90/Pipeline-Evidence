@@ -226,7 +226,7 @@
         </div>
     </section>
 
-    <nav id="page-nav-bar" style="position: sticky; top: 0; left: 0; right: 0; z-index: 999; background: rgba(12,20,37,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(59,130,246,0.2); padding: 0; margin: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.4);">
+    <nav id="page-nav-bar" style="position: sticky; top: 64px; left: 0; right: 0; z-index: 999; background: rgba(12,20,37,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(59,130,246,0.2); padding: 0; margin: 0; box-shadow: 0 2px 12px rgba(0,0,0,0.4);">
         <div style="max-width: 1400px; margin: 0 auto; padding: 0.5rem 1.5rem; display: flex; align-items: center; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;">
             <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; padding-right: 0.5rem; white-space: nowrap; font-weight: 600; border-right: 1px solid var(--border-subtle); margin-right: 0.5rem;">Jump to</span>
             <a href="#nav-epidemiology" style="padding: 0.5rem 0.875rem; font-size: 0.78rem; color: var(--text-secondary); text-decoration: none; white-space: nowrap; border-radius: 6px; transition: all 0.2s ease; border: 1px solid transparent; font-weight: 500;">Epidemiology</a>
@@ -1902,16 +1902,16 @@
             </div>
         
             <div style="margin: 3rem 0 2rem;">
-                <div id="nav-epidemiology" style="scroll-margin-top: 64px;"></div>
+                <div id="nav-epidemiology" style="scroll-margin-top: 112px;"></div>
             <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.3);">
                     <h3 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--accent-light); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(59,130,246,0.15);">Epidemiology & Impact</h3>
                     <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Lung cancer remains the leading cause of cancer death worldwide, responsible for approximately 1.8 million deaths annually. In the United States, an estimated 234,580 new cases and 125,070 deaths are projected for 2024. While overall incidence has declined due to reduced smoking rates, lung cancer in never-smokers now accounts for 10-20% of all cases and is increasingly recognized as a molecularly distinct entity enriched for actionable driver mutations. The five-year survival rate has improved from 17% to 25% over the past decade, driven by targeted therapy and immunotherapy advances.</p>
                     
-                    <div id="nav-molecular" style="scroll-margin-top: 64px;"></div>
+                    <div id="nav-molecular" style="scroll-margin-top: 112px;"></div>
             <h3 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--accent-light); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(59,130,246,0.15);">Molecular Biology & Biomarkers</h3>
                     <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.5rem;">Molecular profiling has become the cornerstone of NSCLC management. Next-generation sequencing at diagnosis is now standard of care, testing for EGFR mutations (15-30% of adenocarcinomas), ALK rearrangements (3-7%), ROS1 fusions (1-2%), BRAF V600E (2-4%), KRAS G12C (13%), MET exon 14 skipping (3-4%), RET fusions (1-2%), NTRK fusions (&lt;1%), HER2 mutations (2-3%), and NRG1 fusions (&lt;1%). PD-L1 tumor proportion score guides immunotherapy decisions. Liquid biopsy (ctDNA) has emerged as a complementary diagnostic tool for monitoring treatment response and detecting resistance mutations early.</p>
                     
-                    <div id="nav-landscape" style="scroll-margin-top: 64px;"></div>
+                    <div id="nav-landscape" style="scroll-margin-top: 112px;"></div>
             <h3 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--accent-light); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(59,130,246,0.15);">Evolving Treatment Landscape</h3>
                     <p style="color: var(--text-secondary); line-height: 1.85; font-size: 0.95rem;">The NSCLC therapeutic landscape now includes over 40 FDA-approved agents. For EGFR-mutated disease, osimertinib is the dominant first-line agent, with combinations pushing outcomes further. Third-generation ALK inhibitors like lorlatinib extend PFS beyond 5 years. KRAS G12C inhibitors have opened a previously undruggable target. For patients without driver mutations, pembrolizumab-based regimens remain first-line standard. The perioperative space is evolving with neoadjuvant chemoimmunotherapy and adjuvant targeted therapy changing surgical paradigms.</p>
                 </div>
@@ -1921,7 +1921,7 @@
 
     
     
-    <div id="nav-seer" style="scroll-margin-top: 64px;"></div>
+    <div id="nav-seer" style="scroll-margin-top: 112px;"></div>
     <section style="max-width: 1400px; margin: 3rem auto; padding: 0 2rem;">
         <div style="background: linear-gradient(160deg, rgba(12,20,37,0.95) 0%, rgba(20,30,51,0.9) 50%, rgba(12,20,37,0.95) 100%); border: 1px solid rgba(59,130,246,0.15); border-radius: 16px; padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
             <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #3b82f6, #22d3ee, #34d399); border-radius: 2px;"></div>
@@ -2089,63 +2089,85 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <script>
-    // Smooth scroll for nav links + active state highlighting
-    document.addEventListener('DOMContentLoaded', function() {
-        const navBar = document.getElementById('page-nav-bar');
+    // ── Tumor Page Section Nav ──────────────────────────────────────────────
+    (function () {
+        var NAV_OFFSET = 116; // px: main header (64) + page-nav-bar (~44) + buffer (8)
+
+        var navBar = document.getElementById('page-nav-bar');
         if (!navBar) return;
-        const links = navBar.querySelectorAll('a[href^="#"]');
-        
-        // Smooth scroll on click
-        links.forEach(function(link) {
-            link.addEventListener('click', function(e) {
+
+        var links  = Array.from(navBar.querySelectorAll('a[href^="#"]'));
+        var strip  = navBar.querySelector('[style*="overflow-x"]') || navBar.firstElementChild;
+
+        // ── 1. Smooth scroll on click ──────────────────────────────────────
+        links.forEach(function (link) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Update active state
-                    links.forEach(function(l) { l.style.color = ''; l.style.background = ''; l.style.borderColor = 'transparent'; });
-                    this.style.color = 'var(--accent-light)';
-                    this.style.background = 'rgba(59,130,246,0.12)';
-                    this.style.borderColor = 'rgba(59,130,246,0.25)';
-                }
+                var id  = this.getAttribute('href').slice(1);
+                var el  = document.getElementById(id);
+                if (!el) return;
+                var top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+                window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
             });
         });
-        
-        // Highlight active section on scroll
-        var sections = [];
-        links.forEach(function(link) {
-            var id = link.getAttribute('href').substring(1);
-            var el = document.getElementById(id);
-            if (el) sections.push({ el: el, link: link });
-        });
-        
-        var ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(function() {
-                    var scrollPos = window.scrollY + 80;
-                    var active = null;
-                    sections.forEach(function(s) {
-                        if (s.el.offsetTop <= scrollPos) active = s;
-                    });
-                    links.forEach(function(l) { 
-                        l.style.color = ''; 
-                        l.style.background = ''; 
-                        l.style.borderColor = 'transparent'; 
-                    });
-                    if (active) {
-                        active.link.style.color = 'var(--accent-light)';
-                        active.link.style.background = 'rgba(59,130,246,0.12)';
-                        active.link.style.borderColor = 'rgba(59,130,246,0.25)';
-                        // Auto-scroll the nav bar to keep active item visible
-                        active.link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    }
-                    ticking = false;
-                });
-                ticking = true;
+
+        // ── 2. Build section map ───────────────────────────────────────────
+        var sections = links.map(function (link) {
+            var id = link.getAttribute('href').slice(1);
+            return { el: document.getElementById(id), link: link };
+        }).filter(function (s) { return s.el; });
+
+        // ── 3. Active-link highlight on scroll ────────────────────────────
+        var activeLink = null;
+
+        function setActive(link) {
+            if (link === activeLink) return;
+            if (activeLink) {
+                activeLink.style.color      = '';
+                activeLink.style.background = '';
+                activeLink.style.borderColor = 'transparent';
             }
-        });
-    });
+            activeLink = link;
+            if (!link) return;
+            link.style.color       = 'var(--accent-light)';
+            link.style.background  = 'rgba(29,158,117,0.12)';
+            link.style.borderColor = 'rgba(29,158,117,0.3)';
+
+            // Scroll the nav strip so active link is visible (no page-scroll side-effects)
+            if (strip) {
+                var linkLeft   = link.offsetLeft;
+                var linkWidth  = link.offsetWidth;
+                var stripWidth = strip.offsetWidth;
+                var scrollLeft = strip.scrollLeft;
+                var pad = 40;
+                if (linkLeft < scrollLeft + pad) {
+                    strip.scrollTo({ left: linkLeft - pad, behavior: 'smooth' });
+                } else if (linkLeft + linkWidth > scrollLeft + stripWidth - pad) {
+                    strip.scrollTo({ left: linkLeft + linkWidth - stripWidth + pad, behavior: 'smooth' });
+                }
+            }
+        }
+
+        var ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+                var scrollPos = window.scrollY + NAV_OFFSET + 20;
+                var best = null;
+                sections.forEach(function (s) {
+                    if (s.el.getBoundingClientRect().top + window.scrollY <= scrollPos) {
+                        best = s;
+                    }
+                });
+                setActive(best ? best.link : null);
+                ticking = false;
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll(); // run once on load
+    })();
     </script>
 
     <div id="global-tumor-nav" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(12,20,37,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid rgba(59,130,246,0.2); box-shadow: 0 -2px 12px rgba(0,0,0,0.4); padding: 0.6rem 1.5rem;">

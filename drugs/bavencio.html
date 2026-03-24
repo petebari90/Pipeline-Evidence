@@ -131,7 +131,7 @@
     }
     .pi-nav {
         position: sticky;
-        top: 0;
+        top: 64px;
         left: 0;
         right: 0;
         z-index: 999;
@@ -738,10 +738,13 @@
         });
     })();
 
-    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    document.querySelectorAll('.pi-nav a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
+            e.preventDefault();
             var target = document.querySelector(this.getAttribute('href'));
-            if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+            if (!target) return;
+            var top = target.getBoundingClientRect().top + window.scrollY - 116;
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
         });
     });
 
@@ -767,26 +770,38 @@
         });
     });
 
-    /* Active PI nav link on scroll */
+    /* Active PI nav link on scroll + strip auto-scroll */
     (function() {
-        var sections = document.querySelectorAll('.pi-block[id]');
-        var navLinks = document.querySelectorAll('.pi-nav a, .pi-nav-inner a, .pi-nav-strip a');
+        var NAV_OFFSET = 116;
+        var sections = Array.from(document.querySelectorAll('.pi-block[id]'));
+        var navLinks = Array.from(document.querySelectorAll('.pi-nav a, .pi-nav-inner a'));
+        var strip = document.querySelector('.pi-nav-inner');
         if (!sections.length || !navLinks.length) return;
+        var activeLink = null;
+        function setActive(link) {
+            if (link === activeLink) return;
+            navLinks.forEach(function(l) { l.classList.remove('active'); });
+            activeLink = link;
+            if (!link) return;
+            link.classList.add('active');
+            if (strip) {
+                var ll = link.offsetLeft, lw = link.offsetWidth, sw = strip.offsetWidth, sl = strip.scrollLeft, pad = 40;
+                if (ll < sl + pad) strip.scrollTo({ left: ll - pad, behavior: 'smooth' });
+                else if (ll + lw > sl + sw - pad) strip.scrollTo({ left: ll + lw - sw + pad, behavior: 'smooth' });
+            }
+        }
         var ticking = false;
         function updateActive() {
-            var scrollPos = window.scrollY + window.innerHeight * 0.3;
-            var current = '';
+            var scrollPos = window.scrollY + NAV_OFFSET + 20;
+            var best = null;
             sections.forEach(function(s) {
-                if (s.offsetTop <= scrollPos) current = s.id;
+                if (s.getBoundingClientRect().top + window.scrollY <= scrollPos) best = s;
             });
-            navLinks.forEach(function(a) {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-            });
+            var bestLink = best ? navLinks.find(function(l){ return l.getAttribute('href') === '#' + best.id; }) : null;
+            setActive(bestLink || null);
             ticking = false;
         }
-        window.addEventListener('scroll', function() {
-            if (!ticking) { requestAnimationFrame(updateActive); ticking = true; }
-        });
+        window.addEventListener('scroll', function() { if (!ticking) { requestAnimationFrame(updateActive); ticking = true; } }, { passive: true });
         updateActive();
     })();
 

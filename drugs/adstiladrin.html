@@ -131,7 +131,7 @@
     }
     .pi-nav {
         position: sticky;
-        top: 0;
+        top: 64px;
         left: 0;
         right: 0;
         z-index: 999;
@@ -548,10 +548,13 @@
         });
     })();
 
-    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    document.querySelectorAll('.pi-nav a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
+            e.preventDefault();
             var target = document.querySelector(this.getAttribute('href'));
-            if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+            if (!target) return;
+            var top = target.getBoundingClientRect().top + window.scrollY - 116;
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
         });
     });
 

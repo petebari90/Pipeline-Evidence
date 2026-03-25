@@ -1,3 +1,19 @@
 User-agent: *
 Allow: /
+
+# Disallow utility pages
+Disallow: /contact
+Disallow: /terms
+Disallow: /privacy
+Disallow: /disclaimer
+Disallow: /suggestions
+Disallow: /google916ccfd61f81a9ec.html
+
+# Allow Googlebot, Bingbot explicitly
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://cancerdrugevidence.com/sitemap.xml

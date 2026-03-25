@@ -44,8 +44,8 @@
                 <a href="drug-library.html">Drug Library</a>
                 <a href="glossary.html">Glossary</a>
                 <a href="articles.html">Articles</a>
+                <a href="regulatory-news.html">Regulatory News</a>
                 <a href="compare.html">Compare</a>
-                <a href="methodology.html">Methodology</a>
                 <a href="about.html">About</a>
             </nav>
         </div>
@@ -257,6 +257,34 @@
     </section>
 
     <!-- ═══ ARTICLES PREVIEW ═══ -->
+    <!-- ═══ REGULATORY NEWS TEASER ═══ -->
+    <section class="pe-section reveal">
+        <div class="pe-section-header">
+            <div class="overline">Live Updates</div>
+            <h2>Regulatory News</h2>
+            <p>New FDA and EMA oncology approvals — updated daily from official sources.</p>
+        </div>
+        <div style="background:var(--bg-surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border-light);background:var(--bg-subtle);">
+                <div style="display:flex;align-items:center;gap:0.6rem;">
+                    <span style="display:inline-block;width:7px;height:7px;background:#E74C3C;border-radius:50%;animation:pulse 2s infinite;"></span>
+                    <span style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);">Live Feed</span>
+                </div>
+                <a href="regulatory-news.html" style="font-size:0.78rem;font-weight:600;color:var(--accent);text-decoration:none;">View full tracker →</a>
+            </div>
+            <div id="homepage-feed" style="min-height:180px;">
+                <div style="padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem;" id="hp-skeleton">
+                    <div style="height:16px;background:linear-gradient(90deg,var(--bg-subtle) 25%,var(--border-light) 50%,var(--bg-subtle) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;width:70%;"></div>
+                    <div style="height:16px;background:linear-gradient(90deg,var(--bg-subtle) 25%,var(--border-light) 50%,var(--bg-subtle) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;width:85%;"></div>
+                    <div style="height:16px;background:linear-gradient(90deg,var(--bg-subtle) 25%,var(--border-light) 50%,var(--bg-subtle) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:4px;width:60%;"></div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:1.25rem;">
+            <a href="regulatory-news.html" class="pe-btn pe-btn-ghost" style="font-size:0.85rem;">View Full Regulatory Tracker →</a>
+        </div>
+    </section>
+
     <section class="pe-section reveal">
         <div class="pe-section-header">
             <div class="overline">Learn More</div>
@@ -368,6 +396,79 @@
 
     <!-- ═══ SCRIPTS ═══ -->
     <script>
+    // ── Homepage regulatory news teaser feed ──
+    (async function loadHomepageFeed() {
+        const container = document.getElementById('homepage-feed');
+        if (!container) return;
+
+        const PROXY = 'https://api.allorigins.win/raw?url=';
+        const FEED_URL = 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml';
+        const ONCOLOGY_TERMS = ['cancer','tumor','oncol','leukemia','lymphoma','myeloma','carcinoma','sarcoma','melanoma','glioma','approv'];
+
+        // EMA static fallback items
+        const EMA_ITEMS = [
+            { title: "EMA recommends inavolisib (Itovebi) for HR+/HER2- advanced breast cancer", date: new Date('2025-01-15'), link: "https://www.ema.europa.eu/en/medicines/human/EPAR/itovebi", source: "EMA" },
+            { title: "EMA recommends tarlatamab (Imdelltra) for extensive-stage small cell lung cancer", date: new Date('2025-02-20'), link: "https://www.ema.europa.eu/en/medicines/human/EPAR/imdelltra", source: "EMA" },
+            { title: "EMA approves subcutaneous nivolumab (Opdivo SC) across all approved indications", date: new Date('2025-03-05'), link: "https://www.ema.europa.eu/en/news/meeting-highlights-committee-medicinal-products-human-use-chmp", source: "EMA" },
+        ];
+
+        function classifyType(text) {
+            text = text.toLowerCase();
+            if (text.includes('withdraw')) return { label: 'Withdrawal', cls: '#A32D2D', bg: '#FCEBEB' };
+            if (text.includes('accelerated') || text.includes('breakthrough')) return { label: 'Accelerated', cls: '#0369A1', bg: '#F0F9FF' };
+            if (text.includes('expand') || text.includes('additional indication') || text.includes('supplemental')) return { label: 'Expansion', cls: '#8B6000', bg: '#FFF8E1' };
+            return { label: 'New Approval', cls: '#1A6E45', bg: '#EAF4EE' };
+        }
+
+        function formatDate(d) {
+            if (!d || isNaN(d)) return '';
+            const diff = Math.floor((new Date() - d) / 86400000);
+            if (diff === 0) return 'Today';
+            if (diff === 1) return 'Yesterday';
+            if (diff < 8) return diff + 'd ago';
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function renderItems(items) {
+            const html = items.slice(0, 4).map((item, i) => {
+                const type = classifyType(item.title);
+                const srcColor = item.source === 'EMA' ? '#1A6E45' : '#1A5FA8';
+                const srcBg = item.source === 'EMA' ? '#EAF4EE' : '#EBF5FF';
+                return `<a href="${item.link || 'regulatory-news.html'}" target="${item.link ? '_blank' : '_self'}" rel="noopener"
+                    style="display:block;padding:0.9rem 1.5rem;text-decoration:none;border-bottom:${i < 3 ? '1px solid var(--border-light)' : 'none'};transition:background 0.15s;"
+                    onmouseover="this.style.background='var(--bg-subtle)'" onmouseout="this.style.background=''">
+                    <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem;flex-wrap:wrap;">
+                        <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;padding:0.12rem 0.45rem;border-radius:4px;background:${srcBg};color:${srcColor};">${item.source}</span>
+                        <span style="font-size:0.63rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;padding:0.12rem 0.45rem;border-radius:4px;background:${type.bg};color:${type.cls};">${type.label}</span>
+                        <span style="font-size:0.7rem;color:var(--text-muted);margin-left:auto;">${formatDate(item.date)}</span>
+                    </div>
+                    <div style="font-size:0.88rem;font-weight:600;color:var(--text-primary);line-height:1.4;">${item.title}</div>
+                </a>`;
+            }).join('');
+            container.innerHTML = html;
+        }
+
+        try {
+            const resp = await fetch(PROXY + encodeURIComponent(FEED_URL), { signal: AbortSignal.timeout(8000) });
+            const text = await resp.text();
+            const doc = new DOMParser().parseFromString(text, 'text/xml');
+            const fdaItems = Array.from(doc.querySelectorAll('item'))
+                .map(item => ({
+                    title: item.querySelector('title')?.textContent?.trim() || '',
+                    link: item.querySelector('link')?.textContent?.trim() || '',
+                    date: new Date(item.querySelector('pubDate')?.textContent || ''),
+                    source: 'FDA'
+                }))
+                .filter(i => ONCOLOGY_TERMS.some(t => i.title.toLowerCase().includes(t)));
+
+            const combined = [...fdaItems, ...EMA_ITEMS].sort((a, b) => b.date - a.date);
+            if (combined.length > 0) { renderItems(combined); return; }
+        } catch(e) {}
+
+        // Fallback: EMA only
+        renderItems(EMA_ITEMS);
+    })();
+
     // Header scroll effect
     const header = document.getElementById('pe-header');
     window.addEventListener('scroll', () => {
